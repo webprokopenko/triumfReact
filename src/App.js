@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import Auth from './containers/Auth/Auth';
 import logo from './assets/images/logo.svg';
 import './App.css';
 
 class App extends Component {
   render() {
+    let routes = (
+      <Switch>
+        <Route path="/" exact component={Auth} />
+      </Switch>
+    );
+
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          {routes}
         </p>
       </div>
     );

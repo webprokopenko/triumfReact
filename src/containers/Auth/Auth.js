@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-class Auth extends Comment{
+class Auth extends Component{
     render(){
         return(
             <p>
-
+                Auth touth
             </p>
         );
     }
