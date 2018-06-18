@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
-import Auth from './containers/Auth/Auth';
-import logo from './assets/images/logo.svg';
+import Eth from './containers/Eth/Eth';
+import Menu from './containers/Menu/Menu';
 import './App.css';
 
 class App extends Component {
   render() {
     let routes = (
       <Switch>
-        <Route path="/" exact component={Auth} />
+        <Route path="/" exact component={Menu} />
+        <Route path="/eth" exact component={Eth} />
       </Switch>
     );
 
