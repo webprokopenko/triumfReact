@@ -1,7 +1,8 @@
-    import React, { Component } from 'react';
-    import axios from '../../axios';
-import AccountService from '../../services/AccountService';
+import React, { Component } from 'react';
+import axios from '../../axios';
+import {AccountEthService} from '../../services/AccountEthService';
 import ReactFileReader from 'react-file-reader';
+import  {ApiETH} from '../../services/ApiETH';
 const EthereumTx = require('ethereumjs-tx');
 
 class Eth extends Component {
@@ -20,31 +21,35 @@ class Eth extends Component {
             error: false
         }
         this.keyFile = {};
+        this.ApiETH = new ApiETH();
+        this.AccountService = new AccountEthService();
     }
     componentWillMount() {
         this.getSystemData();
     }
-    generateEthKeyFile() {
-        const aService = new AccountService();
-        aService.createETHAccount(this.state.password);
+    async generateEthKeyFile() {
+        let ObjKeyFile = await this.AccountService.createETHAccount(this.state.password);
+        this.AccountService.KeyData.saveObject(ObjKeyFile);
     }
     uploadFiles = files => {
-        const file = new FileReader();
-        file.readAsText(files[0]);
-        file.onload = (event) => {
-            try {
-                const keyFile = JSON.parse(event.target.result);
+        this.AccountService.KeyData.uploadObject(files)
+            .then(keyFile=>{
                 console.log('keyFile: ');
                 console.dir(keyFile);
                 this.keyFile = keyFile;
                 this.setState({ address: '0x' + keyFile.address })
-                this.getTransactionCount('0x' + keyFile.address);
-
-            } catch (e) {
-                console.dir(e);
+                this.ApiETH.getTransactionCount('0x' + keyFile.address)
+                    .then(res=>{
+                        this.setState({transactionCount:res})
+                    })
+                    .catch(e=>{
+                        console.log(e);
+                    })
+            })
+            .catch(error=>{
+                console.dir(error);
                 this.setState({ error: true })
-            }
-        }
+            })
     }
     async sendEth() {
         this.getPrivateKey(this.state.auth_pass, this.keyFile)
@@ -62,27 +67,14 @@ class Eth extends Component {
                 const tx = new EthereumTx(txParams)
                 tx.sign(privateKey)
                 let rawTx = '0x' + tx.serialize().toString('hex')
-                this.sendRawTransaction(rawTx)
+                this.ApiETH.sendRawTransaction(rawTx)
                     .then(transactionHash => {
-                        this.getTransactionByHash(transactionHash)
+                        this.ApiETH.getTransactionByHash(transactionHash)
                             .then(transactionInfo => {
                                 console.log(transactionInfo);
                             })
                     })
             })
-    }
-    getTokenBalance(){
-        let contractAddress = '0x4c3f9408f77ca93eb528ca0ae3c99d72434466e2';
-        try {
-            axios.get(`v4.0/ETH/getTokenBalance/${contractAddress}/${this.state.address}`)
-                .then(resp => {
-                    console.log('Token balance: ');
-                    console.log(resp.data.tokens);
-                })
-        } catch (error) {
-            this.setState({ error: true });
-            console.log('getTokenBalance Error: ' + error);
-        }
     }
     sendTokenEth(){
         console.log("sendTokenETH");
@@ -105,9 +97,9 @@ class Eth extends Component {
             const tx = new EthereumTx(txParams)
             tx.sign(privateKey)
             let rawTx = '0x' + tx.serialize().toString('hex')
-            this.sendRawTransaction(rawTx)
+            this.ApiETH.sendRawTransaction(rawTx)
                 .then(transactionHash => {
-                    this.getTransactionByHash(transactionHash)
+                    this.ApiETH.getTransactionByHash(transactionHash)
                         .then(transactionInfo => {
                             console.log(transactionInfo);
                         })
@@ -116,66 +108,27 @@ class Eth extends Component {
     }
     async getPrivateKey(passPhrase, keyFile) {
         try {
-            const bService = new AccountService();
-            const privateKey = await bService.openETHAccount(passPhrase, keyFile);
+            const privateKey = await this.AccountService.openETHAccount(passPhrase, keyFile);
             return privateKey;
         } catch (error) {
             console.log('PassPharase not valid!');
         }
 
     }
-    getSystemData() {
+    async getSystemData() {
         try {
-            axios.get('v4.0/ETH/getPriceLimit')
-                .then(resp => {
-                    this.setState({ gasLimit: resp.data.gasLimitHex })
-                    this.setState({ gasPrice: resp.data.gasPriceHex })
-                    console.dir('gasLimitHex: ' + resp.data.gasLimitHex);
-                    console.dir('gasPriceHex: ' + resp.data.gasPriceHex);
-                })
+            let priceLimit = await this.ApiETH.getPriceLimit();
+            this.setState({ gasLimit: priceLimit.gasLimitHex });
+            this.setState({ gasPrice: priceLimit.gasPriceHex });   
         } catch (error) {
             this.setState({ error: true });
             console.log('GetSystemData Error: ' + error);
         }
     }
-    getTransactionCount(address) {
-        try {
-            axios.get(`v4.0/ETH/getTransactionCount/${address}`)
-                .then(resp => {
-                    let transactionCount = Number(resp.data.TransactionCount).toString(16);
-                    this.setState({ transactionCount: '0x' + transactionCount })
-
-                })
-        } catch (error) {
-            this.setState({ error: true });
-            console.log('getTransactionCount Error: ' + error);
-        }
-    }
-    sendRawTransaction(raw) {
-        return new Promise((resolve, reject) => {
-            try {
-                axios.get(`v4.0/ETH/sendRawTransaction/${raw}`)
-                    .then(resp => {
-                        resolve(resp.data.hash);
-                    })
-            } catch (error) {
-                this.setState({ error: true });
-                reject(error);
-            }
-        })
-    }
-    getTransactionByHash(hash) {
-        return new Promise((resolve, reject) => {
-            try {
-                axios.get(`v4.0/ETH/getTransactionByHash/${hash}`)
-                    .then(resp => {
-                        resolve(resp);
-                    })
-            } catch (error) {
-                this.setState({ error: true });
-                reject(error)
-            }
-        })
+    getTokenBalance = async () =>{
+        let tokenBalance = await this.ApiETH.getTokenBalance(this.state.address);
+        console.log('Token Balance: ');
+        console.log(tokenBalance);
     }
     render() {
         return (
@@ -187,7 +140,7 @@ class Eth extends Component {
                         <input type="text" value={this.state.address} onChange={(event) => this.setState({ address: event.target.value })} />
                     </p>
                     <p>
-                        <button onClick={() => this.getTokenBalance()}>Get Token Balance</button>
+                        <button onClick={this.getTokenBalance}>Get Token Balance</button>
                     </p>
                 </p>
 
