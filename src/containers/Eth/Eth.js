@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import axios from '../../axios';
+    import React, { Component } from 'react';
+    import axios from '../../axios';
 import AccountService from '../../services/AccountService';
 import ReactFileReader from 'react-file-reader';
 const EthereumTx = require('ethereumjs-tx');
