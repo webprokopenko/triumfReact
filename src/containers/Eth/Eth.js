@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import axios from '../../axios';
-import {AccountEthService} from '../../services/AccountEthService';
+import { AccountEthService } from '../../services/AccountEthService';
 import ReactFileReader from 'react-file-reader';
-import  {ApiETH} from '../../services/ApiETH';
-const EthereumTx = require('ethereumjs-tx');
+import { ApiETH } from '../../services/ApiETH';
 
 class Eth extends Component {
     constructor(props) {
@@ -18,6 +16,7 @@ class Eth extends Component {
             address: '',
             to_adress: '',
             privKey: '',
+            transactionHash:'',
             error: false
         }
         this.keyFile = {};
@@ -33,102 +32,69 @@ class Eth extends Component {
     }
     uploadFiles = files => {
         this.AccountService.KeyData.uploadObject(files)
-            .then(keyFile=>{
+            .then(keyFile => {
                 console.log('keyFile: ');
                 console.dir(keyFile);
                 this.keyFile = keyFile;
                 this.setState({ address: '0x' + keyFile.address })
                 this.ApiETH.getTransactionCount('0x' + keyFile.address)
-                    .then(res=>{
-                        this.setState({transactionCount:res})
+                    .then(res => {
+                        this.setState({ transactionCount: res })
                     })
-                    .catch(e=>{
+                    .catch(e => {
                         console.log(e);
                     })
             })
-            .catch(error=>{
+            .catch(error => {
                 console.dir(error);
                 this.setState({ error: true })
             })
     }
     async sendEth() {
-        this.getPrivateKey(this.state.auth_pass, this.keyFile)
-            .then(privateKey => {
-                console.log(privateKey);
-                const txParams = {
-                    nonce: this.state.transactionCount,
-                    gasPrice: this.state.gasPrice,
-                    gasLimit: '0x' + (Number(21000).toString(16)),
-                    to: this.state.to_adress,
-                    value: '0x' + (0.00001 * 1e18).toString(16),
-                    data: '',
-                    chainId: 3
-                }
-                const tx = new EthereumTx(txParams)
-                tx.sign(privateKey)
-                let rawTx = '0x' + tx.serialize().toString('hex')
-                this.ApiETH.sendRawTransaction(rawTx)
-                    .then(transactionHash => {
-                        this.ApiETH.getTransactionByHash(transactionHash)
-                            .then(transactionInfo => {
-                                console.log(transactionInfo);
-                            })
+        let privateKey = await this.AccountService.recoveryFromKeyObject(this.state.auth_pass, this.keyFile);
+        let rawTx = await this.AccountService.prepareTransaction(
+            this.state.transactionCount, this.state.gasPrice, this.state.to_adress,
+            privateKey, 0.00001
+        );
+
+        this.ApiETH.sendRawTransaction(rawTx)
+            .then(transactionHash => {
+                this.ApiETH.getTransactionByHash(transactionHash)
+                    .then(transactionInfo => {
+                        console.log(transactionInfo);
                     })
             })
     }
-    sendTokenEth(){
-        console.log("sendTokenETH");
-        this.getPrivateKey(this.state.auth_pass, this.keyFile)
-        .then(privateKey => {
-            const templ = '0000000000000000000000000000000000000000000000000000000000000000';
-            const txParams = {
-                nonce: this.state.transactionCount,
-                gasPrice: this.state.gasPrice,
-                gasLimit: '0x' + (Number(82000).toString(16)),
-                to: '0x4c3f9408f77ca93eb528ca0ae3c99d72434466e2',
-                value: '0x',
-                data: '0xa9059cbb000000000000000000000000'
-                    + this.state.to_adress.replace('0x', '')
-                    + templ.substr(0, 64 - Number(1).toString(16).length)
-                    + Number(5).toString(16),
-                chainId: 3
-            }
-            
-            const tx = new EthereumTx(txParams)
-            tx.sign(privateKey)
-            let rawTx = '0x' + tx.serialize().toString('hex')
-            this.ApiETH.sendRawTransaction(rawTx)
-                .then(transactionHash => {
-                    this.ApiETH.getTransactionByHash(transactionHash)
-                        .then(transactionInfo => {
-                            console.log(transactionInfo);
-                        })
-                })
-        })
-    }
-    async getPrivateKey(passPhrase, keyFile) {
-        try {
-            const privateKey = await this.AccountService.openETHAccount(passPhrase, keyFile);
-            return privateKey;
-        } catch (error) {
-            console.log('PassPharase not valid!');
-        }
+    async sendTokenEth() {
+        let privateKey = await this.AccountService.recoveryFromKeyObject(this.state.auth_pass, this.keyFile);
+        let rawTx = await this.AccountService.prepareTokenTransaction(
+            this.state.transactionCount, this.state.gasPrice, this.state.to_adress,
+            privateKey, 1
+        );
 
+        let transactionHash  = await this.ApiETH.sendRawTransaction(rawTx);
+        console.log('TransactionHash: ');
+        console.log(transactionHash);
     }
     async getSystemData() {
         try {
             let priceLimit = await this.ApiETH.getPriceLimit();
             this.setState({ gasLimit: priceLimit.gasLimitHex });
-            this.setState({ gasPrice: priceLimit.gasPriceHex });   
+            this.setState({ gasPrice: priceLimit.gasPriceHex });
         } catch (error) {
             this.setState({ error: true });
             console.log('GetSystemData Error: ' + error);
         }
     }
-    getTokenBalance = async () =>{
+    getTokenBalance = async () => {
         let tokenBalance = await this.ApiETH.getTokenBalance(this.state.address);
         console.log('Token Balance: ');
         console.log(tokenBalance);
+    }
+    getInfoByHash = async () => {
+        let transactionInfo = await this.ApiETH.getTransactionByHash(this.state.transactionHash);
+        console.log('TransactionInfo: ');
+        console.log(transactionInfo);
     }
     render() {
         return (
@@ -171,7 +137,7 @@ class Eth extends Component {
                 <p>
                     <button onClick={() => this.sendEth()}>Send ETH</button>
                 </p>
-                    Send Token to address:
+                Send Token to address:
                 <p>
                     <label>Key File:</label>
                     <ReactFileReader fileTypes={["*"]} base64={false} multipleFiles={false} handleFiles={this.uploadFiles}>
@@ -187,6 +153,16 @@ class Eth extends Component {
 
                 <p>
                     <button onClick={() => this.sendTokenEth()}>Send ETH</button>
+                </p>
+                <p>
+                    Get Transaction Info:
+                    <p>
+                        <label>Transaction Hash</label>
+                        <input type="text" value={this.state.transactionHash} onChange={(event) => this.setState({ transactionHash: event.target.value })} />
+                    </p>
+                    <p>
+                        <button onClick={this.getInfoByHash}>Get Info</button>
+                    </p>
                 </p>
             </p>
         )

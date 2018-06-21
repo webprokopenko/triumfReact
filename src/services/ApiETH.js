@@ -1,8 +1,5 @@
 import axios from '../axios';
 export class ApiETH{
-    constructor(){
-
-    }
     sendRawTransaction(raw) {
         return new Promise((resolve, reject) => {
             try {
@@ -32,7 +29,7 @@ export class ApiETH{
     getTransactionByHash(hash) {
         return new Promise((resolve, reject) => {
             try {
-                axios.get(`v4.0/ETH/getTransactionByHash/${hash}`)
+                axios.get(`v4.0/ETH/getTransactionByHash/${hash}`,{timeout: 20000})
                     .then(resp => {
                         resolve(resp.data);
                     })

@@ -2,9 +2,6 @@
 import axios from '../axios';
 
 class ApiBTC{
-    constructor(){
-
-    }
     getBalance(address){
         return new Promise((resolve, reject)=>{
             try {
