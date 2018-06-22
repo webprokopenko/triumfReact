@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { NavLink } from 'react-router-dom';
 
 class Menu extends Component{
+    
     render(){
         return(
         <p>
@@ -13,6 +14,10 @@ class Menu extends Component{
                 to='/btc'
                 exact='exact'
                 activeClassName>Bitcoin</NavLink>
+            <NavLink 
+                to='/transactions'
+                exact='exact'
+                activeClassName>Transactions ETH</NavLink>
         </p>
         )
     }
