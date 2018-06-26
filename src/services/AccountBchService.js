@@ -46,7 +46,7 @@ class AccountBchService {
      * @param {string} change address where send rest of BTC
      */
     prepareTransaction(privateKey, utx, receiver, amount, change) {
-        const tx = Bitcore.Transaction();
+        const tx = Bitcash.Transaction();
         const dec = new Big(1e8);
         const utxos = [];
         utx.forEach(utxo => {
@@ -64,7 +64,7 @@ class AccountBchService {
         tx.from(utxos);
         tx.to(receiver, parseInt(BitAmount.mul(dec).toString(), 10));
         tx.change(change);
-        const pKey = Bitcore.PrivateKey.fromWIF(privateKey);
+        const pKey = Bitcash.PrivateKey.fromWIF(privateKey);
         tx.sign(pKey);
         return tx.serialize();
     }

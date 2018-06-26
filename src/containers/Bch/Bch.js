@@ -14,19 +14,19 @@ class Btc extends Component{
         }
         this.key={};
         this.BchAccountService = new BchAccountService('testnet');
-        this.ApiBTC = new ApiBCH();
+        this.ApiBCH = new ApiBCH();
     }
     generateBchAccount(){
         let obj = this.BchAccountService.generateKeys('passphrase');
         this.BchAccountService.KeyData.saveObject(obj);
     }
     async getBalance(){
-        let balance = await this.ApiBTC.getBalance(this.state.address);
+        let balance = await this.ApiBCH.getBalance(this.state.address);
         console.log('Balance: ');
         console.log(balance);
     }
     uploadFiles = files => {
-        this.BtcAccountService.KeyData.uploadObject(files)
+        this.BchAccountService.KeyData.uploadObject(files)
             .then(data => {
                 this.key = data;
                 this.setState({address : data.address});
@@ -38,16 +38,16 @@ class Btc extends Component{
             })
     }
     async sendBtc(){
-        let utxos = await this.ApiBTC.getUtxos(this.state.address);
+        let utxos = await this.ApiBCH.getUtxos(this.state.address);
         console.log('Utxos: ');
         console.log(utxos);
-        let recoveryKey = this.BtcAccountService.recoveryFromKeyObject('passphrase', this.key);
+        let recoveryKey = this.BchAccountService.recoveryFromKeyObject('passphrase', this.key);
         console.log(recoveryKey);
-        let rawTransaction = this.BtcAccountService.prepareTransaction(recoveryKey.privatekey, utxos.utxos, this.state.to_adress,0.1,this.state.address);
+        let rawTransaction = this.BchAccountService.prepareTransaction(recoveryKey.privatekey, utxos.utxos, this.state.to_adress,0.1,this.state.address);
         console.log('Raw transaction:')
         console.log(rawTransaction);
 
-        this.ApiBTC.sendTransaction(rawTransaction)
+        this.ApiBCH.sendTransaction(rawTransaction)
             .then(res=>{
                 console.log(res);
             })
@@ -85,7 +85,7 @@ class Btc extends Component{
                         <input type="text" value={this.state.to_adress} onChange={(event) => this.setState({ to_adress: event.target.value })} />
                     </p>
                     <p>
-                    <button onClick={() => this.sendBtc()}>Send BTC</button>
+                    <button onClick={() => this.sendBtc()}>Send BCH</button>
                 </p>
                 </p>
             </p>
