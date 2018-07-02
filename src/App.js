@@ -5,9 +5,9 @@ import Btc from './containers/Btc/Btc';
 import Bch from './containers/Bch/Bch';
 import WrappTransaction from './containers/Transactions/WrappTransaction';
 import Menu from './containers/Menu/Menu';
-import LeftSide from './components/LeftSide/LeftSide';
-import CenterSide from './components/CentralSide/CentralSide';
-import RightSide from './components/RightSide/RightSide';
+import LeftSide from './containers/LeftSide/LeftSide';
+import CenterSide from './containers/CentralSide/CentralSide';
+import RightSide from './containers/RightSide/RightSide';
 import './assets/css/fonts.css';
 import './assets/css/main.css';
 
