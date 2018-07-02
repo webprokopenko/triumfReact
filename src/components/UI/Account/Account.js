@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import ReactFileReader from 'react-file-reader';
 import Bch from '../../../services/Bch/Bch';
 import CSS from './Account.css';
@@ -53,17 +55,17 @@ class Account extends Component {
                 console.log('btc');
                 break;
             case 'bch':
-            try {
-                let privateKey = this.Bch.recoveryKey(this.state.authPass, this.key);
-                this.key.privateKey = privateKey.privatekey;
-                console.log(this.key);
-                let globalWallets = this.state.wallets;
-                console.log(globalWallets);
-                //globalWallets.push('this.key');
-                //this.setState({wallets: this.key});
-            } catch (error) {
-                console.log('Password not valid');   
-            }
+                try {
+                    let privateKey = this.Bch.recoveryKey(this.state.authPass, this.key);
+                    this.key.privateKey = privateKey.privatekey;
+                    console.log(this.key);
+                    let globalWallets = this.state.wallets;
+                    console.log(globalWallets);
+                    //globalWallets.push('this.key');
+                    //this.setState({wallets: this.key});
+                } catch (error) {
+                    console.log('Password not valid');
+                }
                 break;
             default:
                 break;
@@ -102,13 +104,25 @@ class Account extends Component {
                     <input type="input" className={CSS.input_send_transaction} value={this.state.authPass} onChange={(event) => this.setState({ authPass: event.target.value })} />
                     <span className={CSS.label_send_transaction}>
                         PASSWORD
-                        </span>
+                    </span>
                 </p>
                 <br />
                 <button className={CSS.button_send} onClick={() => this.auth()}>AUTH FROM FILE</button>
+
+                <button className={CSS.button_send} onClick={() => this.props.onIncrementCounter(11)}>TEST REDUCE</button>
             </div>
         )
     }
 }
+const mapStateToProps = state => {
+    return {
+        globalWallets: state.wallets
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        onIncrementCounter: (count) => dispatch({ type: 'ADD', wallet: count })
+    }
+}
 
-export default Account;
+export default connect(mapStateToProps, mapDispatchToProps)(Account); 

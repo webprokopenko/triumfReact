@@ -30,6 +30,10 @@ class App extends Component {
 	  e.preventDefault();
     this.setState({rightWindow:<WindowAccount />});
   }
+  transactionsHistory = (e) => {
+    e.preventDefault();
+    this.setState({rightWindow:<WindowSendTransaction />})
+  }
   render() {
     let routes = (
       <Switch>
