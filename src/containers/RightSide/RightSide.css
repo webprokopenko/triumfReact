@@ -37,18 +37,6 @@
   margin: 0 auto;
   padding-bottom: 100px;
 }
-.button_send{
-	display: block;
-	text-decoration: none;
-    color: rgb(255,255,255);
-    padding: 15px 35px;
-    font-family: "mullerthin";
-    font-size: 12pt;
-    position: relative;
-    border-radius: 2px;
-    background-color: red;
-	text-align: center;
-}
 .button_resive{
 	display: block;
 	text-decoration: none;
@@ -112,9 +100,7 @@
 	display: block;
 	padding-bottom: 30px;
 }
-.right_side_send_transaction{
-	padding-bottom: 100px;
-}
+
 .tr_history_up{
 	background-image: url('../../assets/images/icons/arrow_up.png');
     background-repeat: no-repeat;
@@ -146,26 +132,6 @@
 	font-family: 'mullerthin';
 	font-size: 10pt;
 	color: rgb(255,255,255);
-}
-.input_send_transaction{
-	width: 100%;
-    padding: 16px 0;
-    margin: 2px 6px 16px 0;
-	background-color: #06222E;
-	border-top-width: 0;
-	border-left-width: 0;
-	border-right-width: 0;
-	border-bottom: 1px;
-	border-bottom-style: solid;
-	border-bottom-color: rgb(255,255,255);
-    font-size: 18pt;
-	font-family: "mullerthin";
-	color: rgb(255,255,255);
-}
-.label_send_transaction{
-	color: rgb(255,255,255);
-    font-family: "mullerthin";
-    font-size: 12pt;
 }
 .right_side_confirm_transaction{
 	padding: 50px 0;

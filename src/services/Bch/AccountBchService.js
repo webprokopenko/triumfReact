@@ -1,7 +1,7 @@
 import * as Bitcash from 'bitcoincashjs';
 import * as crypto from 'crypto-browserify';
 import * as Big from 'bignumber.js';
-import { KeyDataToFile } from './KeyDataToFile';
+import { KeyDataToFile } from '../KeyDataToFile';
 
 class AccountBchService {
     constructor(network) {
@@ -22,7 +22,8 @@ class AccountBchService {
         return {
             address: pKey.toAddress().toString(),
             calg: 'aes256',
-            cifertext: cifertext
+            cifertext: cifertext,
+            blockchain : 'bch'
         }
     }
     recoveryFromKeyObject(passphrase: string, keyObject: object) {
@@ -69,4 +70,4 @@ class AccountBchService {
         return tx.serialize();
     }
 }
-export default AccountBchService;
+export default AccountBchService; 

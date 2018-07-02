@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import BchAccountService from '../../services/AccountBchService';
-import ApiBCH from '../../services/ApiBCH';
+import BchAccountService from '../../services/Bch/AccountBchService';
+import ApiBCH from '../../services/Bch/ApiBCH';
 import ReactFileReader from 'react-file-reader';
 
-class Btc extends Component{
+class Bch extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -92,4 +92,4 @@ class Btc extends Component{
         );
     }
 }
-export default Btc;
+export default Bch;

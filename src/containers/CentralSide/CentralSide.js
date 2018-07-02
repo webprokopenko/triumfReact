@@ -9,7 +9,7 @@ class CentralSide extends Component {
 			<menu className="clearfix">
 				<Wallets />
 			</menu>
-			<a href="/" className={CSS.create_new_wallet_button}>
+			<a href="/" onClick={this.props.createWallet} className={CSS.create_new_wallet_button}>
 				CREATE NEW WALLET
 			</a>
 		</div>
