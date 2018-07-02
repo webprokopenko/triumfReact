@@ -1,0 +1,101 @@
+/* clearfix */
+.clearfix:before,
+.clearfix:after {
+	content: " "; /* 1 */
+	display: table; /* 2 */
+}
+.clearfix:after {
+	clear: both;
+}
+
+.central_side{
+	float:left;
+	background: #001B24;
+	width: 37%;
+	height: 100%;
+}
+.central_side_menu_item{
+	text-align: center;
+	text-decoration: none;
+	list-style: none;
+	display: block;
+}
+.central_side_menu_item_active{
+	background-color: #06222E;
+}
+.central_side_menu_item_left{
+	float: left;
+	text-align: center;
+	text-decoration: none;
+	list-style: none;
+	display: block;
+	padding: 20px;
+}
+.central_side_menu_item_right{
+	float: right;
+	text-align: center;
+	text-decoration: none;
+	list-style: none;
+	display: block;
+	padding: 20px;
+}
+.central_side_menu_item_text_1{
+	color: rgb(255,255,255);
+	font-family: 'mullerbold';
+	font-size: 25pt;
+}
+.central_side_menu_item_text_2{
+	display: block;
+	color: rgb(255,255,255);
+	font-family: 'mullerlight';
+	font-size: 15pt;
+}
+.central_side_menu_item_text_3{
+	display: block;
+	color: rgb(255,255,255);
+	font-family: 'mullerlight';
+	font-size: 10pt;
+}
+.central_side_menu_button_red{
+	display: block;
+	text-decoration: none;
+    color: rgb(255,255,255);
+    padding: 5px 35px;
+    font-family: "mullerthin";
+    font-size: 12pt;
+    position: relative;
+    border-radius: 15px;
+    background-color: red;
+	text-align: center;
+	background-image: url('../../assets/images/icons/arrow_up_white.png');
+    background-repeat: no-repeat;
+	background-position: left;
+	background-position-x: 15px;
+}
+.central_side_menu_button_select{
+	font-family: "mullerthin";
+	padding: 40px 40px 40px 30px;
+	font-size: 10pt;
+	color: #06FFEC;
+	text-decoration: none;
+	background-image: url('../../assets/images/icons/arrow-right.png');
+    background-repeat: no-repeat;
+	background-position: right;
+	display: block;
+}
+.create_new_wallet_button{
+	font-family: "mullerthin";
+	font-size: 9px;
+	color: #06FFEC;
+	padding: 50px 20px;
+	background-image: url('../../assets/images/icons/add_wallet.png');
+    background-repeat: no-repeat;
+	background-position: bottom;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+
+}
+.green{
+	background-color: green;
+}

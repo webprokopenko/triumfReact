@@ -1,0 +1,90 @@
+.left_side{
+	float:left;
+	display: inline-block;
+	background: #06222E;
+	width: 20%;
+	border-right-style: solid;
+    border-right-width: 1px;
+	border-right-color: white;
+	height: 100%;
+}
+.wrapp_logo{
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-color: rgb(255,255,255);
+	text-align: center;
+	padding: 35px;
+}
+.logo_img{
+	position: relative;
+	width: 100px;
+}
+.left_side_infoblock{
+	text-align: center;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-color: rgb(255,255,255);
+	padding: 55px 0;
+}
+.left_side_infoblock_text_1{
+	font-family: 'mullerultralight';
+	font-size: 25pt;
+	color: rgb(255,255,255);
+}
+.left_side_infoblock_text2{
+	font-family: 'mullerbold';
+	font-size: 25pt;
+	color: rgb(255,255,255);
+}
+.left_side_menu_item{
+	text-align: left;
+	text-decoration: none;
+	list-style: none;
+	display: block;
+	padding: 20px 65px;
+}
+.left_side_menu_bg_1{
+	background-image: url('./../../assets/images/icons/wallet.png');
+    background-repeat: no-repeat;
+	background-position: left;
+	background-position-x: 20px;
+}
+.left_side_menu_bg_2{
+	background-image: url('./../../assets/images/icons/stats.png');
+    background-repeat: no-repeat;
+	background-position: left;
+	background-position-x: 20px;
+}
+.left_side_menu_bg_3{
+	background-image: url('./../../assets/images/icons/stats.png');
+    background-repeat: no-repeat;
+	background-position: left;
+	background-position-x: 20px;
+}
+.left_side_menu_bg_4{
+	background-image: url('./../../assets/images/icons/arrows.png');
+    background-repeat: no-repeat;
+	background-position: left;
+	background-position-x: 20px;
+}
+.left_side_menu_bg_5{
+	background-image: url('./../../assets/images/icons/stats.png');
+    background-repeat: no-repeat;
+	background-position: left;
+	background-position-x: 20px;
+}
+.left_side_menu_bg_6{
+	background-image: url('./../../assets/images/icons/ring.png');
+    background-repeat: no-repeat;
+	background-position: left;
+	background-position-x: 20px;
+}
+.left-side_menu_bg_7{
+	background-image: url('./../../assets/images/icons/config.png');
+    background-repeat: no-repeat;
+	background-position: left;
+	background-position-x: 20px;
+}
+.left_side_menu_active{
+	background-color: #001B24;
+}

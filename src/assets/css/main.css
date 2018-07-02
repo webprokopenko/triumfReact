@@ -1,0 +1,30 @@
+/* clearfix */
+.container:before, .clearfix:before,
+.container:after, .clearfix:after {
+	content: " "; /* 1 */
+	display: table; /* 2 */
+}
+.container:after, .clearfix:after {
+	clear: both;
+}
+html, body, #fullheight {
+    min-height: 100% !important;
+	height: 100%;
+	background: #001B24;
+}
+menu,ul{
+	margin: 0;
+    padding: 0;
+}
+.left{
+	float: left;
+}
+.right{
+	float: right;
+}
+
+.wrapp-all{
+	max-width: 1200px;
+	display: table;
+  margin: 0 auto;
+}

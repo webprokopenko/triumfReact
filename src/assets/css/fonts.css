@@ -1,0 +1,144 @@
+@font-face {
+    font-family: 'mullerthin_italic';
+    src: url('../fonts/muller-thin_italic-webfont.woff2') format('woff2'),
+         url('../fonts/muller-thin_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'mullerthin';
+    src: url('../fonts/muller-thin-webfont.woff2') format('woff2'),
+         url('../fonts/muller-thin-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'mullerultralight_italic';
+    src: url('../fonts/muller-ultralight_italic-webfont.woff2') format('woff2'),
+         url('../fonts/muller-ultralight_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'mullerultralight';
+    src: url('../fonts/muller-ultralight-webfont.woff2') format('woff2'),
+         url('../fonts/muller-ultralight-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'mullerlight';
+    src: url('../fonts/muller-light-webfont.woff2') format('woff2'),
+         url('../fonts/muller-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'mullermedium_italic';
+    src: url('../fonts/muller-medium_italic-webfont.woff2') format('woff2'),
+         url('../fonts/muller-medium_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'mullermedium';
+    src: url('../fonts/muller-medium-webfont.woff2') format('woff2'),
+         url('../fonts/muller-medium-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'mullerregular_italic';
+    src: url('../fonts/muller-regular_italic-webfont.woff2') format('woff2'),
+         url('../fonts/muller-regular_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'muller_regularregular';
+    src: url('../fonts/muller-regular-webfont.woff2') format('woff2'),
+         url('../fonts/muller-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'mullerheavy_italic';
+    src: url('../fonts/muller-heavy_italic-webfont.woff2') format('woff2'),
+         url('../fonts/muller-heavy_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'mullerheavy';
+    src: url('../fonts/muller-heavy-webfont.woff2') format('woff2'),
+         url('../fonts/muller-heavy-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'mullerlight_italic';
+    src: url('../fonts/muller-light_italic-webfont.woff2') format('woff2'),
+         url('../fonts/muller-light_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'mullerblack_italic';
+    src: url('../fonts/muller-black_italic-webfont.woff2') format('woff2'),
+         url('../fonts/muller-black_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'mullerblack';
+    src: url('../fonts/muller-black-webfont.woff2') format('woff2'),
+         url('../fonts/muller-black-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'mullerbold_italic';
+    src: url('../fonts/muller-bold_italic-webfont.woff2') format('woff2'),
+         url('../fonts/muller-bold_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'mullerbold';
+    src: url('../fonts/muller-bold-webfont.woff2') format('woff2'),
+         url('../fonts/muller-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'mullerextrabold_italic';
+    src: url('../fonts/muller-extrabold_italic-webfont.woff2') format('woff2'),
+         url('../fonts/muller-extrabold_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'mullerextrabold';
+    src: url('../fonts/muller-extrabold-webfont.woff2') format('woff2'),
+         url('../fonts/muller-extrabold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}

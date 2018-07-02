@@ -18,7 +18,7 @@ class AccountBchService {
         const cifer = crypto.createCipher('aes256', passphrase);
         let cifertext = cifer.update(Buffer.from(privatekey), 'utf8', 'hex')
         cifertext += cifer.final('hex');
-        const pKey = Bitcore.PrivateKey.fromWIF(privatekey);
+        const pKey = Bitcash.PrivateKey.fromWIF(privatekey);
         return {
             address: pKey.toAddress().toString(),
             calg: 'aes256',
