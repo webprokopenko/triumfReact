@@ -22,13 +22,12 @@ class Bch{
     recoveryKey (passphrase, key) {
         return this.BchAccountService.recoveryFromKeyObject(passphrase, key);
     }
-    async sendBtc(){
-        let utxos = await this.ApiBCH.getUtxos(this.state.address);
+    async sendTransaction(params){
+        let utxos = await this.ApiBCH.getUtxos(params.FromAddress);
         console.log('Utxos: ');
         console.log(utxos);
-        let recoveryKey = this.BchAccountService.recoveryFromKeyObject('passphrase', this.key);
-        console.log(recoveryKey);
-        let rawTransaction = this.BchAccountService.prepareTransaction(recoveryKey.privatekey, utxos.utxos, this.state.to_adress,0.1,this.state.address);
+ //0.1
+        let rawTransaction = this.BchAccountService.prepareTransaction(params.PrivateKey, utxos.utxos, params.ToAdress,params.Quantity,params.FromAddress);
         console.log('Raw transaction:')
         console.log(rawTransaction);
 

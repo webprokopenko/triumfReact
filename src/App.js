@@ -19,16 +19,15 @@ class App extends Component {
     this.state = {
       transactions:[],
       rightWindow:null,
-      wallets:[]
     };
-  }
-  componentWillUpdate(){
-    console.log('Component App Will Update: ');
-    console.log(this.state.wallets);
   }
   createWallet = (e) => {
 	  e.preventDefault();
     this.setState({rightWindow:<WindowAccount />});
+  }
+  sendTransaction = (e, id) => {
+    e.preventDefault();
+    this.setState({rightWindow:<WindowSendTransaction id={id}/>})
   }
   transactionsHistory = (e) => {
     e.preventDefault();
@@ -50,7 +49,7 @@ class App extends Component {
       </LeftSide>
     )
     let center = (
-      <CenterSide createWallet={this.createWallet}>
+      <CenterSide createWallet={this.createWallet} sendTransaction={this.sendTransaction}>
 
       </CenterSide>
     );

@@ -15,7 +15,6 @@ class Account extends Component {
             newPass: '',
             authPass: ''
         }
-
     }
     handleChange = (event) => {
         this.setState({ typeAccount: event.target.value });
@@ -39,7 +38,6 @@ class Account extends Component {
                 console.log('btc');
                 break;
             case 'bch':
-                console.log('bch');
                 this.Bch.generateBchAccount(this.state.newPass);
                 break;
             default:
@@ -58,13 +56,10 @@ class Account extends Component {
                 try {
                     let privateKey = this.Bch.recoveryKey(this.state.authPass, this.key);
                     this.key.privateKey = privateKey.privatekey;
-                    console.log(this.key);
-                    let globalWallets = this.state.wallets;
-                    console.log(globalWallets);
-                    //globalWallets.push('this.key');
-                    //this.setState({wallets: this.key});
+                    this.props.addNewWallet(this.key)
+                    
                 } catch (error) {
-                    console.log('Password not valid');
+                    console.log(error);
                 }
                 break;
             default:
@@ -108,8 +103,6 @@ class Account extends Component {
                 </p>
                 <br />
                 <button className={CSS.button_send} onClick={() => this.auth()}>AUTH FROM FILE</button>
-
-                <button className={CSS.button_send} onClick={() => this.props.onIncrementCounter(11)}>TEST REDUCE</button>
             </div>
         )
     }
@@ -121,7 +114,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        onIncrementCounter: (count) => dispatch({ type: 'ADD', wallet: count })
+        addNewWallet: (wallet) => dispatch({ type: 'ADD_WALLET', wallet: wallet })
     }
 }
 

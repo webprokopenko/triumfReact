@@ -1,12 +1,12 @@
 const InitialState = {
-    wallets:0
+    wallets:[]
 }
 
 const reducer = (state = InitialState, action) => {
-    if(action.type === 'ADD'){
-        console.log(state.wallets);
+    if(action.type === 'ADD_WALLET'){
         return {
-            wallets: state.wallets + action.wallet 
+            ...state,
+            wallets: [...state.wallets, action.wallet]
         }
     }
     return state;
