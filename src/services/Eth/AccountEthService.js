@@ -1,5 +1,5 @@
 import * as Keythereum from "keythereum";
-import { KeyDataToFile } from './KeyDataToFile';
+import { KeyDataToFile } from '../KeyDataToFile';
 const EthereumTx = require('ethereumjs-tx');
 
 export class AccountEthService {
@@ -28,6 +28,7 @@ export class AccountEthService {
                         dk.salt,
                         dk.iv,
                         options);
+                    keyFile.blockchain ='eth';
                 resolve(keyFile);
             } catch (error) {
                 reject(error);
@@ -37,6 +38,7 @@ export class AccountEthService {
     recoveryFromKeyObject(passphrase, keyObject) {
         return new Promise((resolve, reject) => {
             try {
+                delete keyObject.blockchain
                 let privateKey = this.libKeythereum.recover(passphrase, keyObject);
 
                 resolve(privateKey);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CSS from './SendTransaction.css';
 import Bch from '../../../services/Bch/Bch';
+import Eth from '../../../services/Eth/Eth';
 
 class SendTransaction extends Component {
     constructor(props){

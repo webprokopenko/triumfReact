@@ -1,4 +1,4 @@
-import axios from '../axios';
+import axios from '../../axios';
 export class ApiETH {
     sendRawTransaction(raw) {
         return new Promise((resolve, reject) => {

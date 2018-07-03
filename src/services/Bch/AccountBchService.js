@@ -23,7 +23,7 @@ class AccountBchService {
             address: pKey.toAddress().toString(),
             calg: 'aes256',
             cifertext: cifertext,
-            blockchain : 'bch'
+            blockchain : 'eth'
         }
     }
     recoveryFromKeyObject(passphrase: string, keyObject: object) {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { AccountEthService } from '../../services/AccountEthService';
+import { AccountEthService } from '../../services/Eth/AccountEthService';
 import ReactFileReader from 'react-file-reader';
-import { ApiETH } from '../../services/ApiETH';
+import { ApiETH } from '../../services/Eth/ApiETH';
 
 class Eth extends Component {
     constructor(props) {

@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 
 import ReactFileReader from 'react-file-reader';
 import Bch from '../../../services/Bch/Bch';
+import Eth from '../../../services/Eth/Eth';
 import CSS from './Account.css';
 
 class Account extends Component {
     constructor(props) {
         super(props);
         this.Bch = new Bch();
+        this.Eth = new Eth();
         this.key = {}
         this.state = {
             typeAccount: 'eth',
@@ -23,6 +25,8 @@ class Account extends Component {
         this.Bch.uploadFiles(files)
             .then(data => {
                 this.key = data
+                console.log('Uploda files this.key:');
+                console.log(data);
             })
             .catch(err => {
                 console.log(err);
@@ -32,7 +36,7 @@ class Account extends Component {
     generateAccount = () => {
         switch (this.state.typeAccount) {
             case 'eth':
-                console.log('eth');
+                this.Eth.generateEthKeyFile(this.state.newPass);
                 break;
             case 'btc':
                 console.log('btc');
@@ -44,10 +48,13 @@ class Account extends Component {
                 break;
         }
     }
-    auth = () => {
+    auth = async() => {
         switch (this.key.blockchain) {
             case 'eth':
-                console.log('eth');
+                let copyKey = Object.assign({}, this.key);
+                let privateKey =  await this.Eth.recoveryKey(this.state.authPass, copyKey)
+                this.key.privateKey = privateKey;
+                this.props.addNewWallet(this.key);
                 break;
             case 'btc':
                 console.log('btc');
@@ -63,7 +70,7 @@ class Account extends Component {
                 }
                 break;
             default:
-                break;
+                console.log('switch blockchain deffault');
         }
     }
     render() {
