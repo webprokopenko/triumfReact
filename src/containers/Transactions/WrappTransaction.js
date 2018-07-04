@@ -1,4 +1,4 @@
-import Transactions from './Transactions';
+import Transactions from '../../components/UI/Transactions/Transactions';
 import React, { Component } from 'react';
 import axios from '../../axios';
 

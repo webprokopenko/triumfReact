@@ -28,6 +28,7 @@ class Wallets extends Component {
                 amount_usd={389}
                 address={key.address}
                 showSend={this.props.showSend}
+                showTransactionsHistory={this.props.showTransactionsHistory}
                 id={val}
             />
         })

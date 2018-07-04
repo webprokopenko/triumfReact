@@ -65,22 +65,11 @@ export class ApiETH {
         })
     }
     getTransactionsList(address, page = null) {
-        return true;
-        page = page ? '/' + page : '';
-        axios.get(`v4.2/ETH/getTransactionsList/${address}`)
-            .then(resp => {
-                return resp.data.transactions;
-
-                // const preparedTr = resp.data.transactions.map(tr => {
-                //     return {
-                //         ...tr,
-                //         datetime: new Date(tr.timestamp * 1000),
-                //     }
-                // });
-                // return preparedTr;
-            })
-            .catch(error => {
-                console.log('ERROR!!!!');
-            })
+        return new Promise((resolve, reject) => { 
+            page = page ? '/' + page : '';
+            axios.get(`v4.2/ETH/getTransactionsList/${address}`)
+            .then(resp => resolve(resp.data.transactions))
+            .catch(err => reject(err))
+        })
     }
 }

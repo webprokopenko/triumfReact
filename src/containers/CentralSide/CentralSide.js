@@ -11,7 +11,7 @@ class CentralSide extends Component {
 		let walletsList = null;
 		if(!isEmptyObj(this.props.globalWallets)){
 			walletsList = (
-				<Wallets wallets={this.props.globalWallets} showSend={this.props.sendTransaction}/>
+				<Wallets wallets={this.props.globalWallets} showSend={this.props.sendTransaction} showTransactionsHistory={this.props.transactionsHistory} />
 			)
 		}
         return (

@@ -3,26 +3,9 @@ import { ApiETH } from './ApiETH';
 
 class Eth {
     constructor() {
-
-        this.state = {
-            gasPrice: 0,
-            transactionCount: '0x',
-            gasLimit: 0,
-            data: '',
-            password: '1111111',
-            auth_pass: '1111111',
-            address: '',
-            to_adress: '',
-            privKey: '',
-            transactionHash: '',
-            error: false
-        }
         this.keyFile = {};
-        this.ApiETH = new ApiETH();
+        this.Api = new ApiETH();
         this.AccountService = new AccountEthService();
-    }
-    componentWillMount() {
-        this.getSystemData();
     }
     async generateEthKeyFile(passphrase) {
         let ObjKeyFile = await this.AccountService.createETHAccount(passphrase);
@@ -35,7 +18,7 @@ class Eth {
                 console.dir(keyFile);
                 this.keyFile = keyFile;
                 this.setState({ address: '0x' + keyFile.address })
-                this.ApiETH.getTransactionCount('0x' + keyFile.address)
+                this.Api.getTransactionCount('0x' + keyFile.address)
                     .then(res => {
                         this.setState({ transactionCount: res })
                     })
@@ -58,9 +41,9 @@ class Eth {
             params.transactionCount, params.gasPrice, params.ToAdress,
             params.PrivateKey, params.Quantity
         );
-        this.ApiETH.sendRawTransaction(rawTx)
+        this.Api.sendRawTransaction(rawTx)
             .then(transactionHash => {
-                this.ApiETH.getTransactionByHash(transactionHash)
+                this.Api.getTransactionByHash(transactionHash)
                     .then(transactionInfo => {
                         console.log(transactionInfo);
                     })
@@ -73,30 +56,49 @@ class Eth {
             privateKey, 1
         );
 
-        let transactionHash = await this.ApiETH.sendRawTransaction(rawTx);
+        let transactionHash = await this.Api.sendRawTransaction(rawTx);
         console.log('TransactionHash: ');
         console.log(transactionHash);
     }
     async getTransactionCount(address) {
-        let count =  await this.ApiETH.getTransactionCount('0x' + address)
+        let count =  await this.Api.getTransactionCount('0x' + address)
         return count;
+    }
+    async getTransactionsList(address) {
+        let privateKey = await this.Api.getTransactionsList(address);
+        return privateKey;
     }
     async getSystemData() {
         try {
-            let priceLimit = await this.ApiETH.getPriceLimit();
+            let priceLimit = await this.Api.getPriceLimit();
             return priceLimit;
         } catch (error) {
             this.setState({ error: true });
             console.log('GetSystemData Error: ' + error);
         }
     }
+    prepareTransaction(tr, address){
+        let preparedTrList =  tr.map(tr => {
+            return (
+                {
+                    from:   tr.from,
+                    to:     tr.to,
+                    value:  tr.value,
+                    date:   tr.timestamp,
+                    tr_in:  (tr.to === address)
+                }
+            );
+        });
+
+        return preparedTrList;
+    }
     getTokenBalance = async () => {
-        let tokenBalance = await this.ApiETH.getTokenBalance(this.state.address);
+        let tokenBalance = await this.Api.getTokenBalance(this.state.address);
         console.log('Token Balance: ');
         console.log(tokenBalance);
     }
     getInfoByHash = async () => {
-        let transactionInfo = await this.ApiETH.getTransactionByHash(this.state.transactionHash);
+        let transactionInfo = await this.Api.getTransactionByHash(this.state.transactionHash);
         console.log('TransactionInfo: ');
         console.log(transactionInfo);
     }

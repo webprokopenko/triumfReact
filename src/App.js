@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Eth from './containers/Eth/Eth';
-import Btc from './containers/Btc/Btc';
-import Bch from './containers/Bch/Bch';
 import WrappTransaction from './containers/Transactions/WrappTransaction';
 import Menu from './containers/Menu/Menu';
 import LeftSide from './containers/LeftSide/LeftSide';
 import CenterSide from './containers/CentralSide/CentralSide';
 import RightSide from './containers/RightSide/RightSide';
 import WindowSendTransaction from './components/UI/SendTransaction/SendTransaction';
+import WindowTransactions from './components/UI/Transactions/Transactions'
 import WindowAccount from './components/UI/Account/Account';
 import './assets/css/fonts.css';
 import './assets/css/main.css';
@@ -16,7 +14,7 @@ import './assets/css/main.css';
 class App extends Component {
   constructor( props ) {
     super( props );
-    this.state = {
+    this.state = {  
       transactions:[],
       rightWindow:null,
     };
@@ -29,27 +27,27 @@ class App extends Component {
     e.preventDefault();
     this.setState({rightWindow:<WindowSendTransaction id={id}/>})
   }
-  transactionsHistory = (e) => {
+  transactionsHistory = (e, id) => {
     e.preventDefault();
-    this.setState({rightWindow:<WindowSendTransaction />})
+    this.setState({rightWindow:<WindowTransactions id={id}/>})
   }
   render() {
-    let routes = (
-      <Switch>
-        <Route path="/" exact component={Menu} />
-        <Route path="/eth" exact component={Eth} />
-        <Route path="/btc" exact component={Btc} />
-        <Route path="/bch" exact component={Bch} />
-        <Route path="/transactions" exact component={WrappTransaction} />
-      </Switch>
-    );
+    // let routes = (
+    //   <Switch>
+    //     <Route path="/" exact component={Menu} />
+    //     <Route path="/eth" exact component={Eth} />
+    //     <Route path="/btc" exact component={Btc} />
+    //     <Route path="/bch" exact component={Bch} />
+    //     <Route path="/transactions" exact component={WrappTransaction} />
+    //   </Switch>
+    // );
     let left = (
       <LeftSide>
         
       </LeftSide>
     )
     let center = (
-      <CenterSide createWallet={this.createWallet} sendTransaction={this.sendTransaction}>
+      <CenterSide createWallet={this.createWallet} sendTransaction={this.sendTransaction} transactionsHistory={this.transactionsHistory}>
 
       </CenterSide>
     );
