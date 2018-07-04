@@ -69,6 +69,9 @@ central_side_menu_item_text_1{
 	color: rgb(255,255,255);
 	font-family: 'mullerlight';
 	font-size: 15pt;
+	width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .central_side_menu_item_text_3{
 	display: block;

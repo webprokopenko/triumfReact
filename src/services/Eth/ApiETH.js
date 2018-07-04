@@ -12,6 +12,18 @@ export class ApiETH {
             }
         })
     }
+    getBalance(address){
+        return new Promise((resolve, reject) => {
+            try {
+                axios.get(`v4.2/ETH/getBalance/${address}`)
+                    .then(resp => {
+                        resolve(resp.data);
+                    })
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
     getTokenBalance(address) {
         return new Promise((resolve, reject) => {
             try {

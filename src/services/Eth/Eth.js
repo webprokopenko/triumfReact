@@ -35,6 +35,10 @@ class Eth {
         let privateKey = await this.AccountService.recoveryFromKeyObject(passphrase, key);
         return privateKey;
     }
+    async getBalance(address){
+        let balance = await this.Api.getBalance(address)
+        return balance.balance;
+    }
     //0.00001
     async sendTransaction(params) {
         let rawTx = await this.AccountService.prepareTransaction(

@@ -7,17 +7,16 @@ class Btc {
         this.BtcAccountService = new BtcAccountService('testnet');
         this.ApiBTC = new ApiBTC();
     }
+    async getBalance(address){
+        let balance = await this.ApiBTC.getBalance(address);
+        return balance;
+    }
     generateBtcAccount(passphrase){
         let obj = this.BtcAccountService.generateKeys(passphrase);
         this.BtcAccountService.KeyData.saveObject(obj);
     }
     recoveryKey (passphrase, key) {
         return this.BtcAccountService.recoveryFromKeyObject(passphrase, key);
-    }
-    async getBalance(){
-        let balance = await this.ApiBTC.getBalance(this.state.address);
-        console.log('Balance: ');
-        console.log(balance);
     }
     uploadFiles = files => {
         this.BtcAccountService.KeyData.uploadObject(files)

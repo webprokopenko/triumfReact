@@ -29,7 +29,7 @@ class App extends Component {
   }
   transactionsHistory = (e, id) => {
     e.preventDefault();
-    this.setState({rightWindow:<WindowTransactions id={id}/>})
+    this.setState({rightWindow:<WindowTransactions id={id} showSendTransaction={this.sendTransaction}/>})
   }
   render() {
     // let routes = (

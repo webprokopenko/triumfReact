@@ -25,7 +25,7 @@ class Wallets extends Component {
                 couse_usd={16.398}
                 alt='TRIUMF Crypto Wallet'
                 name={key.blockchain}
-                amount={0.00003}
+                amount={key.balance}
                 amount_usd={389}
                 address={key.address}
                 showSend={this.props.showSend}

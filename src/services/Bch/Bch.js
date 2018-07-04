@@ -11,10 +11,9 @@ class Bch{
         let obj = this.BchAccountService.generateKeys(passphrase);
         this.BchAccountService.KeyData.saveObject(obj);
     }
-    async getBalance(){
-        let balance = await this.ApiBCH.getBalance(this.state.address);
-        console.log('Balance: ');
-        console.log(balance);
+    async getBalance(address){
+        let balance = await this.ApiBCH.getBalance(address);
+        return balance;
     }
     uploadFiles = files => {
         return this.BchAccountService.KeyData.uploadObject(files)

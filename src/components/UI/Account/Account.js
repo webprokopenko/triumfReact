@@ -54,6 +54,7 @@ class Account extends Component {
                 let copyKey = Object.assign({}, this.key);
                 let privateKey =  await this.Eth.recoveryKey(this.state.authPass, copyKey)
                 this.key.privateKey = privateKey;
+                this.key.balance = await this.Eth.getBalance('0x' + this.key.address);
                 this.props.addNewWallet(this.key);
                 break;
             case 'btc':
@@ -65,6 +66,9 @@ class Account extends Component {
                 try {
                     let privateKey = this.Bch.recoveryKey(this.state.authPass, this.key);
                     this.key.privateKey = privateKey.privatekey;
+                    this.key.balance = await this.Bch.getBalance(this.key.address);
+                    console.log('BCH balance: ');
+                    console.log(this.key.balance);
                     this.props.addNewWallet(this.key)
                     
                 } catch (error) {

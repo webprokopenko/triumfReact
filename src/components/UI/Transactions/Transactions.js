@@ -59,7 +59,7 @@ class Transactions extends Component {
         return (
             <div>
                 <div className={[CSS.right_side_button_block, CSS.clearfix].join(' ')}>
-                    <a href="/" className={[CSS.button_send, CSS.left].join(' ')}>SEND</a>
+                    <a href="/" onClick={(e) => this.props.showSendTransaction(e, this.props.id)} className={[CSS.button_send, CSS.left].join(' ')}>SEND</a>
                     <a href="/" className={[CSS.button_resive, CSS.right].join(' ')}>RECIVE</a>
                 </div>
                 <div className={CSS.right_side_tr_history_block}>
