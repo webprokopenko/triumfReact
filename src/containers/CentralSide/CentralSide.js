@@ -4,9 +4,6 @@ import CSS from './CentralSide.css';
 import Wallets from '../../components/UI/Wallets/Wallets';
 
 class CentralSide extends Component {
-	componentWillUpdate(){
-		console.log('Central Side will update');
-	}
     render() {
 		let walletsList = null;
 		if(!isEmptyObj(this.props.globalWallets)){

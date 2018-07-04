@@ -93,13 +93,13 @@ class Account extends Component {
                 </select>
                 <h2>Generate New Account</h2>
 
-                <input input type="input" className={CSS.input_send_transaction} value={this.state.newPass} onChange={(event) => this.setState({ newPass: event.target.value })} />
+                <input type="input" className={CSS.input_send_transaction} value={this.state.newPass} onChange={(event) => this.setState({ newPass: event.target.value })} />
                 <span className={CSS.label_send_transaction}>PASSWORD</span>
                 <br />
                 <button className={CSS.button_send} onClick={() => this.generateAccount()}>GENERATE ACCOUNT</button>
 
                 <h2>Auth from file</h2>
-                <p>
+                <div>
                     <label>Key File:</label>
                     <ReactFileReader fileTypes={["*"]} base64={false} multipleFiles={false} handleFiles={this.uploadFiles}>
                         <button className='btn'>Upload</button>
@@ -109,7 +109,7 @@ class Account extends Component {
                     <span className={CSS.label_send_transaction}>
                         PASSWORD
                     </span>
-                </p>
+                </div>
                 <br />
                 <button className={CSS.button_send} onClick={() => this.auth()}>AUTH FROM FILE</button>
             </div>

@@ -20,6 +20,7 @@ class Wallets extends Component {
     render() {
         return this.props.wallets.map((key, val) => {
             return <Wallet
+                key={this.props.wallets.indexOf(key)}
                 img={this.setLogo(key.blockchain)}
                 couse_usd={16.398}
                 alt='TRIUMF Crypto Wallet'

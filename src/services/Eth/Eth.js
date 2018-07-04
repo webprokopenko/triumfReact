@@ -78,9 +78,10 @@ class Eth {
         }
     }
     prepareTransaction(tr, address){
-        let preparedTrList =  tr.map(tr => {
+        let preparedTrList =  tr.map((tr, key) => {
             return (
                 {
+                    id:     key,
                     from:   tr.from,
                     to:     tr.to,
                     value:  tr.value,

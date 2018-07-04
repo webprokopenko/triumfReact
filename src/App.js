@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
-import WrappTransaction from './containers/Transactions/WrappTransaction';
-import Menu from './containers/Menu/Menu';
+// import { Switch, Route } from 'react-router-dom';
+// import WrappTransaction from './containers/Transactions/WrappTransaction';
+// import Menu from './containers/Menu/Menu';
 import LeftSide from './containers/LeftSide/LeftSide';
 import CenterSide from './containers/CentralSide/CentralSide';
 import RightSide from './containers/RightSide/RightSide';

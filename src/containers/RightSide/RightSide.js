@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CSS from './RightSide.css';
 
-import LogoBtc from '../../assets/images/icons/btc.png';
+//import LogoBtc from '../../assets/images/icons/btc.png';
 import LogoEth from '../../assets/images/icons/eth.png';
 
 class RightSide extends Component {

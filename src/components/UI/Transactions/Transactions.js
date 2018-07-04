@@ -44,10 +44,11 @@ class Transactions extends Component {
         }
     }
     render() {
-         let transactions = this.state.trList.map((tr, key) => {
+         let transactions = this.state.trList.map(tr => {
             return (
                 <Transaction
-                    id={key}
+                    key={tr.id}
+                    id={tr.id}
                     from={tr.from}
                     to={tr.to}
                     value={tr.value}
@@ -67,16 +68,16 @@ class Transactions extends Component {
 				</span>
                     <div className={CSS.right_side_wrapp_tr_history}>
                         <menu className={CSS.right_side_tr_history_menu}>
-                            <li className={CSS.right_side_tr_history_item}>
+                            <li className={CSS.right_side_tr_history_item} id='transactions_all'>
                                 <a href="/" className={CSS.right_side_tr_history_link}>ALL</a>
                             </li>
-                            <li className={CSS.right_side_tr_history_item}>
+                            <li className={CSS.right_side_tr_history_item} id='transactions_send'>
                                 <a href="/" className={CSS.right_side_tr_history_link}>SEND</a>
                             </li>
-                            <li className={CSS.right_side_tr_history_item}>
+                            <li className={CSS.right_side_tr_history_item} id='transactions_recived'>
                                 <a href="/" className={CSS.right_side_tr_history_link}>RECIVED</a>
                             </li>
-                            <li className={CSS.right_side_tr_history_item}>
+                            <li className={CSS.right_side_tr_history_item} id='transactions_exchanged'>
                                 <a href="/" className={CSS.right_side_tr_history_link}>EXCHANGED</a>
                             </li>
                         </menu>
