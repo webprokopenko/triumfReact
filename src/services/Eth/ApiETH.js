@@ -41,7 +41,7 @@ export class ApiETH {
     getPriceLimit() {
         return new Promise((resolve, reject) => {
             try {
-                axios.get('v4.0/ETH/getPriceLimit')
+                axios.get('v4.2/ETH/getPriceLimit')
                     .then(resp => {
                         resolve({ gasLimit: resp.data.gasLimitHex, gasPrice: resp.data.gasPriceHex })
                     })
@@ -53,7 +53,7 @@ export class ApiETH {
     getTransactionCount(address) {
         return new Promise((resolve, reject) => {
             try {
-                axios.get(`v4.0/ETH/getTransactionCount/${address}`)
+                axios.get(`v4.2/ETH/getTransactionCount/${address}`)
                     .then(resp => {
                         let transactionCount = Number(resp.data.TransactionCount).toString(16);
                         resolve('0x' + transactionCount)

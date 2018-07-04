@@ -1,7 +1,7 @@
 import * as Bitcore from 'bitcore-lib';
 import * as crypto from 'crypto-browserify';
 import * as Big from 'bignumber.js';
-import { KeyDataToFile } from './KeyDataToFile';
+import { KeyDataToFile } from '../KeyDataToFile';
 
 class AccountBtcService {
     constructor(network) {
@@ -28,7 +28,8 @@ class AccountBtcService {
         return {
             address: pKey.toAddress().toString(),
             calg: 'aes256',
-            cifertext: cifertext
+            cifertext: cifertext,
+            blockchain : 'btc'
         }
     }
     recoveryFromKeyObject(passphrase: string, keyObject: object) {

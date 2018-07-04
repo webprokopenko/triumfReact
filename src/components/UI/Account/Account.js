@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ReactFileReader from 'react-file-reader';
 import Bch from '../../../services/Bch/Bch';
 import Eth from '../../../services/Eth/Eth';
+import Btc from '../../../services/Btc/Btc';
 import CSS from './Account.css';
 
 class Account extends Component {
@@ -11,6 +12,7 @@ class Account extends Component {
         super(props);
         this.Bch = new Bch();
         this.Eth = new Eth();
+        this.Btc = new Btc();
         this.key = {}
         this.state = {
             typeAccount: 'eth',
@@ -25,8 +27,6 @@ class Account extends Component {
         this.Bch.uploadFiles(files)
             .then(data => {
                 this.key = data
-                console.log('Uploda files this.key:');
-                console.log(data);
             })
             .catch(err => {
                 console.log(err);
@@ -39,7 +39,7 @@ class Account extends Component {
                 this.Eth.generateEthKeyFile(this.state.newPass);
                 break;
             case 'btc':
-                console.log('btc');
+                this.Btc.generateBtcAccount(this.state.newPass);
                 break;
             case 'bch':
                 this.Bch.generateBchAccount(this.state.newPass);
@@ -57,7 +57,9 @@ class Account extends Component {
                 this.props.addNewWallet(this.key);
                 break;
             case 'btc':
-                console.log('btc');
+                let pKey = this.Btc.recoveryKey(this.state.authPass, this.key);
+                this.key.privateKey = pKey.privatekey;
+                this.props.addNewWallet(this.key)
                 break;
             case 'bch':
                 try {

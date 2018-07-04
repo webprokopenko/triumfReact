@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import CSS from './SendTransaction.css';
 import Bch from '../../../services/Bch/Bch';
 import Eth from '../../../services/Eth/Eth';
+import Btc from '../../../services/Btc/Btc';
 
 class SendTransaction extends Component {
     constructor(props){
@@ -18,20 +19,40 @@ class SendTransaction extends Component {
     componentWillMount(){
         this.setBlockChain(this.props.globalWallets[this.props.id])
     }
-    sendTransaction(e){
+    async sendTransaction(e){
         e.preventDefault();
         console.log('Send Transaction');
         console.log('prepare Transaction params: ');
-        let trParams = this.prepareParamsToSendTransaction();
+        let trParams = await this.prepareParamsToSendTransaction();
+        console.log(this.prepareParamsToSendTransaction());
+        console.log(trParams);
+        //console.log(trParams);
         this.BlockChain.sendTransaction(trParams);
     }
-    prepareParamsToSendTransaction(){
-        return  {
-            FromAddress: this.wallet.address,
-            PrivateKey: this.wallet.privateKey,
-            ToAdress: this.state.to_address,
-            Quantity: this.state.quantity,
+    async prepareParamsToSendTransaction(){
+        if(this.wallet.blockchain!=='eth'){
+            return  {
+                FromAddress: this.wallet.address,
+                PrivateKey: this.wallet.privateKey,
+                ToAdress: this.state.to_address,
+                Quantity: this.state.quantity,
+            }
+        }else{
+            let sysData = await this.getSystemData();
+            let transactionCount = await this.BlockChain.getTransactionCount(this.wallet.address)
+
+            return {
+                transactionCount:   transactionCount,
+                gasPrice:           sysData.gasPrice,
+                PrivateKey:         this.wallet.privateKey,
+                ToAdress:           this.state.to_address,
+                Quantity:           this.state.quantity,
+            }
         }
+    }
+    async getSystemData(){
+        let data = await this.BlockChain.getSystemData();
+        return data;
     }
     setBlockChain(obj){
         switch (obj.blockchain) {
@@ -39,7 +60,14 @@ class SendTransaction extends Component {
                 this.BlockChain = new Bch();
                 this.wallet =  obj;
                 break;
-            
+            case 'btc':
+                this.BlockChain = new Btc();
+                this.wallet =  obj;
+                break;
+            case 'eth':
+                this.BlockChain = new Eth();
+                this.wallet =  obj;
+                break;    
             default:
                 break;
         }

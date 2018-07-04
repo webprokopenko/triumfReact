@@ -3,7 +3,7 @@ import { ApiETH } from './ApiETH';
 
 class Eth {
     constructor() {
-        
+
         this.state = {
             gasPrice: 0,
             transactionCount: '0x',
@@ -14,7 +14,7 @@ class Eth {
             address: '',
             to_adress: '',
             privKey: '',
-            transactionHash:'',
+            transactionHash: '',
             error: false
         }
         this.keyFile = {};
@@ -48,17 +48,16 @@ class Eth {
                 this.setState({ error: true })
             })
     }
-    async recoveryKey(passphrase, key){
-        let privateKey =  await this.AccountService.recoveryFromKeyObject(passphrase, key);
+    async recoveryKey(passphrase, key) {
+        let privateKey = await this.AccountService.recoveryFromKeyObject(passphrase, key);
         return privateKey;
     }
-    async sendEth() {
-        let privateKey = await this.AccountService.recoveryFromKeyObject(this.state.auth_pass, this.keyFile);
+    //0.00001
+    async sendTransaction(params) {
         let rawTx = await this.AccountService.prepareTransaction(
-            this.state.transactionCount, this.state.gasPrice, this.state.to_adress,
-            privateKey, 0.00001
+            params.transactionCount, params.gasPrice, params.ToAdress,
+            params.PrivateKey, params.Quantity
         );
-
         this.ApiETH.sendRawTransaction(rawTx)
             .then(transactionHash => {
                 this.ApiETH.getTransactionByHash(transactionHash)
@@ -74,15 +73,18 @@ class Eth {
             privateKey, 1
         );
 
-        let transactionHash  = await this.ApiETH.sendRawTransaction(rawTx);
+        let transactionHash = await this.ApiETH.sendRawTransaction(rawTx);
         console.log('TransactionHash: ');
         console.log(transactionHash);
+    }
+    async getTransactionCount(address) {
+        let count =  await this.ApiETH.getTransactionCount('0x' + address)
+        return count;
     }
     async getSystemData() {
         try {
             let priceLimit = await this.ApiETH.getPriceLimit();
-            this.setState({ gasLimit: priceLimit.gasLimitHex });
-            this.setState({ gasPrice: priceLimit.gasPriceHex });
+            return priceLimit;
         } catch (error) {
             this.setState({ error: true });
             console.log('GetSystemData Error: ' + error);
@@ -98,6 +100,6 @@ class Eth {
         console.log('TransactionInfo: ');
         console.log(transactionInfo);
     }
-    
+
 }
 export default Eth;
