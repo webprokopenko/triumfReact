@@ -1,25 +1,25 @@
-import BchAccountService from './AccountBchService';
-import ApiBCH from './ApiBCH';
+import LtcAccountService from './AccountLtcService';
+import ApiLTC from './ApiLTC';
 
-class Bch{
+class Ltc{
     constructor(props){
         this.key={};
-        this.BchAccountService = new BchAccountService('testnet');
-        this.Api = new ApiBCH();
+        this.LtcAccountService = new LtcAccountService('testnet');
+        this.ApiLTC = new ApiLTC();
     }
-    generateBchAccount(passphrase){
-        let obj = this.BchAccountService.generateKeys(passphrase);
-        this.BchAccountService.KeyData.saveObject(obj);
+    generateAccount(passphrase){
+        let obj = this.LtcAccountService.generateKeys(passphrase);
+        this.LtcAccountService.KeyData.saveObject(obj);
     }
     async getBalance(address){
-        let balance = await this.Api.getBalance(address);
+        let balance = await this.ApiLTC.getBalance(address);
         return balance;
     }
     uploadFiles = files => {
-        return this.BchAccountService.KeyData.uploadObject(files)
+        return this.LtcAccountService.KeyData.uploadObject(files)
     }
     recoveryKey (passphrase, key) {
-        return this.BchAccountService.recoveryFromKeyObject(passphrase, key);
+        return this.LtcAccountService.recoveryFromKeyObject(passphrase, key);
     }
     async getTransactionsList(address) {
         let tr =  this.Api.getTransactionsList(address);
@@ -43,15 +43,15 @@ class Bch{
         return preparedTrList;
     }
     async sendTransaction(params){
-        let utxos = await this.Api.getUtxos(params.FromAddress);
+        let utxos = await this.ApiLTC.getUtxos(params.FromAddress);
         console.log('Utxos: ');
         console.log(utxos);
  //0.1
-        let rawTransaction = this.BchAccountService.prepareTransaction(params.PrivateKey, utxos.utxos, params.ToAdress,params.Quantity,params.FromAddress);
+        let rawTransaction = this.LtcAccountService.prepareTransaction(params.PrivateKey, utxos.utxos, params.ToAdress,params.Quantity,params.FromAddress);
         console.log('Raw transaction:')
         console.log(rawTransaction);
 
-        this.Api.sendTransaction(rawTransaction)
+        this.ApiLTC.sendTransaction(rawTransaction)
             .then(res=>{
                 console.log(res);
             })
@@ -61,4 +61,4 @@ class Bch{
 
     }
 }
-export default Bch;
+export default Ltc;

@@ -34,6 +34,7 @@
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
     "keythereum": "^1.0.4",
+    "litecore-lib": "^0.13.22",
     "npm": "^6.1.0",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",

@@ -1,11 +1,10 @@
-
 import axios from '../../axios';
 
-class ApiBTC{
+class ApiLTC{
     getBalance(address){
         return new Promise((resolve, reject)=>{
             try {
-                axios.get(`v4.0/BTC/getBalance/${address}`)
+                axios.get(`v4.2/LTC/getBalance/${address}`)
                     .then(resp => {
                         resolve(resp.data.balance);
                     })
@@ -17,7 +16,7 @@ class ApiBTC{
     getTransactionsList(address){
         return new Promise((resolve, reject)=>{
             try {
-                axios.get(`v4.2/BTC/getTransactionsList/${address}`)
+                axios.get(`v4.2/LTC/getTransactionsList/${address}`)
                     .then(resp => {
                         resolve(resp.data);
                     })
@@ -29,7 +28,7 @@ class ApiBTC{
     getUtxos(address){
         return new Promise((resolve, reject)=>{
             try {
-                axios.get(`v4.0/BTC/getUTXOs/${address}`)
+                axios.get(`v4.2/LTC/getUTXOs/${address}`)
                     .then(resp => {
                         resolve(resp.data);
                     })
@@ -41,7 +40,7 @@ class ApiBTC{
     sendTransaction(raw){
         return new Promise((resolve, reject)=>{
             try {
-                axios.get(`v4.0/BTC/sendRawTransaction/${raw}`)
+                axios.get(`v4.2/LTC/sendRawTransaction/${raw}`)
                     .then(resp => {
                         resolve(resp.data);
                     })
@@ -51,4 +50,4 @@ class ApiBTC{
         })
     }
 }
-export default ApiBTC;
+export default ApiLTC;

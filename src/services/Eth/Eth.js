@@ -69,8 +69,8 @@ class Eth {
         return count;
     }
     async getTransactionsList(address) {
-        let privateKey = await this.Api.getTransactionsList(address);
-        return privateKey;
+        let tr = await this.Api.getTransactionsList(address);
+        return tr;
     }
     async getSystemData() {
         try {

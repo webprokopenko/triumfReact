@@ -24,9 +24,6 @@ class SendTransaction extends Component {
         console.log('Send Transaction');
         console.log('prepare Transaction params: ');
         let trParams = await this.prepareParamsToSendTransaction();
-        console.log(this.prepareParamsToSendTransaction());
-        console.log(trParams);
-        //console.log(trParams);
         this.BlockChain.sendTransaction(trParams);
     }
     async prepareParamsToSendTransaction(){

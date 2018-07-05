@@ -5,6 +5,7 @@ import CSS from './Transaction/Transaction.css';
 import Bch from '../../../services/Bch/Bch';
 import Eth from '../../../services/Eth/Eth';
 import Btc from '../../../services/Btc/Btc';
+import Ltc from '../../../services/Ltc/Ltc';
 class Transactions extends Component {
     constructor(params){
         super(params);
@@ -17,8 +18,9 @@ class Transactions extends Component {
     }
     async componentWillMount(){
         try {
-            let tr = await this.BlockChain.getTransactionsList('0x' + this.wallet.address);
-            let trList = this.BlockChain.prepareTransaction(tr, '0x' + this.wallet.address);
+            let tr = await this.BlockChain.getTransactionsList(this.wallet.address);
+            let trList = this.BlockChain.prepareTransaction(tr,this.wallet.address);
+            console.log(trList)
             this.setState({trList: trList});
         } catch (error) {
             console.log(error);
@@ -38,7 +40,11 @@ class Transactions extends Component {
             case 'eth':
                 this.BlockChain = new Eth();
                 this.wallet =  obj;
-                break;    
+                break;
+            case 'ltc':
+                this.BlockChain = new Ltc();
+                this.wallet =  obj;
+                break;        
             default:
                 break;
         }

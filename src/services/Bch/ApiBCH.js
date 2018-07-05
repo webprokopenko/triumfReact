@@ -13,6 +13,18 @@ class ApiBCH{
             }
         })   
     }
+    getTransactionsList(address){
+        return new Promise((resolve, reject)=>{
+            try {
+                axios.get(`v4.2/BCH/getTransactionsList/${address}`)
+                    .then(resp => {
+                        resolve(resp.data);
+                    })
+            } catch (error) {
+                reject(error);
+            }
+        })   
+    }
     getUtxos(address){
         return new Promise((resolve, reject)=>{
             try {
