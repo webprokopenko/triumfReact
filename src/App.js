@@ -6,7 +6,7 @@ import LeftSide from './containers/LeftSide/LeftSide';
 import CenterSide from './containers/CentralSide/CentralSide';
 import RightSide from './containers/RightSide/RightSide';
 import WindowSendTransaction from './components/UI/SendTransaction/SendTransaction';
-import WindowTransactions from './components/UI/Transactions/Transactions'
+import WindowTransactions from './containers/Transactions/Transactions'
 import WindowAccount from './containers/Account/Account';
 import './assets/css/fonts.css';
 import './assets/css/main.css';

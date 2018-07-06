@@ -1,76 +1,39 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Transaction from './Transaction/Transaction';
 import CSS from './Transaction/Transaction.css';
-import Bch from '../../../services/Bch/Bch';
-import Eth from '../../../services/Eth/Eth';
-import Btc from '../../../services/Btc/Btc';
-import Ltc from '../../../services/Ltc/Ltc';
+
 class Transactions extends Component {
-    constructor(params){
-        super(params);
-        this.BlockChain={};
-        this.wallet={};
-        this.setBlockChain(this.props.globalWallets[this.props.id]);
-        this.state = {
-            trList:[]
-        }
-    }
-    async componentWillMount(){
-        try {
-            let tr = await this.BlockChain.getTransactionsList(this.wallet.address);
-            let trList = this.BlockChain.prepareTransaction(tr,this.wallet.address);
-            console.log(trList)
-            this.setState({trList: trList});
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    
-    setBlockChain(obj){
-        switch (obj.blockchain) {
-            case 'bch':
-                this.BlockChain = new Bch();
-                this.wallet =  obj;
-                break;
-            case 'btc':
-                this.BlockChain = new Btc();
-                this.wallet =  obj;
-                break;
-            case 'eth':
-                this.BlockChain = new Eth();
-                this.wallet =  obj;
-                break;
-            case 'ltc':
-                this.BlockChain = new Ltc();
-                this.wallet =  obj;
-                break;        
-            default:
-                break;
-        }
-    }
     render() {
-         let transactions = this.state.trList.map(tr => {
-            return (
-                <Transaction
-                    key={tr.id}
-                    id={tr.id}
-                    from={tr.from}
-                    to={tr.to}
-                    value={tr.value}
-                    date={tr.date}
-                    tr_in={tr.tr_in} />
+        let transactions = {}
+        if(Array.isArray(this.props.trList)) {
+             transactions = this.props.trList.map(tr => {
+                return (
+                    <Transaction
+                        key={tr.id}
+                        id={tr.id}
+                        from={tr.from}
+                        to={tr.to}
+                        value={tr.value}
+                        date={tr.date}
+                        tr_in={tr.tr_in} />
+                )
+            });
+        } else {
+             transactions = (
+                <div>
+                    Transactions downloads
+                </div>
             )
-        });
+        }
         return (
             <div className={CSS.right_side}>
                 <div className={CSS.right_side_info_block}>
-                    <img src={this.wallet.logo} className={CSS.right_side_info_img} alt="Triumf Crypto coin" />
+                    <img src={this.props.logo} className={CSS.right_side_info_img} alt='Triumf Crypto Coin'/>
                     <span className={CSS.right_side_info_block_text_1}>
-                        {this.wallet.blockchain}
+                        {this.props.blockchain}
                     </span>
                     <span className={CSS.right_side_info_block_text_2}>
-                        {this.wallet.balance}
+                        {this.props.balance}
                     </span>
                     <span className={CSS.right_side_info_block_text_3}>
                         USD ~ $ 1136.78
@@ -110,9 +73,4 @@ class Transactions extends Component {
         )
     }
 }
-const MapStateToProps = state =>{
-    return{
-        globalWallets: state.wallets
-    }
-}
-export default connect(MapStateToProps)(Transactions);
+export default Transactions;

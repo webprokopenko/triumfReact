@@ -89,7 +89,7 @@ menu,ul{
 	padding-bottom: 100px;
 }
 .tr_history_up{
-	background-image: url('../../../../assets/images/icons/arrow_up.png');
+	background-image: url('../../../assets/images/icons/arrow_up.png');
     background-repeat: no-repeat;
 	background-position: left;
 	background-position-x: 20px;
@@ -100,7 +100,7 @@ menu,ul{
 	color: green;
 }
 .tr_history_down{
-	background-image: url('../../../../assets/images/icons/arrow_down.png');
+	background-image: url('../../../assets/images/icons/arrow_down.png');
     background-repeat: no-repeat;
 	background-position: left;
 	background-position-x: 20px;
@@ -229,7 +229,7 @@ menu,ul{
 }
 
 .tr_history_up{
-	background-image: url('../../../../assets/images/icons/arrow_up.png');
+	background-image: url('../../../assets/images/icons/arrow_up.png');
     background-repeat: no-repeat;
 	background-position: left;
 	background-position-x: 20px;
@@ -240,7 +240,7 @@ menu,ul{
 	color: green;
 }
 .tr_history_down{
-	background-image: url('../../../../assets/images/icons/arrow_down.png');
+	background-image: url('../../../assets/images/icons/arrow_down.png');
     background-repeat: no-repeat;
 	background-position: left;
 	background-position-x: 20px;

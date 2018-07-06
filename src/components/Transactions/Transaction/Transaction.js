@@ -2,17 +2,6 @@ import React, { Component } from 'react';
 import CSS from './Transaction.css';
 
 class Transaction extends Component {
-    // constructor(props){
-    //     super(props);
-    //     this.state = {
-    //         date: this.props.date * 1000
-    //     }
-    // }
-    // componentWillMount(){
-    //     console.log('Transaction component will mount');
-    //     console.log('State date: ');
-    //     console.log(this.state.date);
-    // }
     render() {
         let ClassTrInOut = this.props.tr_in ? CSS.tr_history_up : CSS.tr_history_down
         let FromTo = this.props.tr_in ? this.props.from : this.props.to
