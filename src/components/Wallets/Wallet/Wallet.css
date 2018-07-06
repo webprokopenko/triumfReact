@@ -35,7 +35,7 @@
     border-radius: 15px;
     background-color: red;
 	text-align: center;
-	background-image: url('../../../../assets/images/icons/arrow_up_white.png');
+	background-image: url('../../../assets/images/icons/arrow_up_white.png');
     background-repeat: no-repeat;
 	background-position: left;
 	background-position-x: 15px;
@@ -46,7 +46,7 @@
 	font-size: 10pt;
 	color: #06FFEC;
 	text-decoration: none;
-	background-image: url('../../../../assets/images/icons/arrow-right.png');
+	background-image: url('../../../assets/images/icons/arrow-right.png');
     background-repeat: no-repeat;
 	background-position: right;
 	display: block;

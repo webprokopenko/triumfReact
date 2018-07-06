@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CSS from './CentralSide.css';
-import Wallets from '../../components/UI/Wallets/Wallets';
+import Wallets from '../../components/Wallets/Wallets';
 
 class CentralSide extends Component {
     render() {

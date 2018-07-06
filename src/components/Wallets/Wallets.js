@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+
 import Wallet from './Wallet/Wallet';
 
 class Wallets extends Component {
@@ -6,6 +8,7 @@ class Wallets extends Component {
         return this.props.wallets.map((key, val) => {
             return <Wallet
                 key={this.props.wallets.indexOf(key)}
+                logo={this.props.globalWallets[val].logo}
                 couse_usd={16.398}
                 name={key.blockchain}
                 amount={key.balance}
@@ -18,4 +21,9 @@ class Wallets extends Component {
         })
     }
 }
-export default Wallets;
+const mapStateToProps = state =>{
+    return {
+        globalWallets: state.wallets
+    }
+}
+export default connect(mapStateToProps)(Wallets);
