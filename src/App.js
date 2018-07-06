@@ -7,7 +7,7 @@ import CenterSide from './containers/CentralSide/CentralSide';
 import RightSide from './containers/RightSide/RightSide';
 import WindowSendTransaction from './components/UI/SendTransaction/SendTransaction';
 import WindowTransactions from './components/UI/Transactions/Transactions'
-import WindowAccount from './components/UI/Account/Account';
+import WindowAccount from './containers/Account/Account';
 import './assets/css/fonts.css';
 import './assets/css/main.css';
 

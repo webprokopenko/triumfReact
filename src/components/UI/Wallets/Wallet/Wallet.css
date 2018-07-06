@@ -59,7 +59,9 @@
 	display: block;
 	padding: 20px;
 }
-central_side_menu_item_text_1{
+.central_side_menu_item_text_1{
+	display: inline;
+	text-transform:uppercase;
 	color: rgb(255,255,255);
 	font-family: 'mullerbold';
 	font-size: 25pt;

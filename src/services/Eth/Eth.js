@@ -65,7 +65,7 @@ class Eth {
         console.log(transactionHash);
     }
     async getTransactionCount(address) {
-        let count =  await this.Api.getTransactionCount('0x' + address)
+        let count =  await this.Api.getTransactionCount(address);
         return count;
     }
     async getTransactionsList(address) {
