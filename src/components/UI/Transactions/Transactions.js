@@ -63,7 +63,19 @@ class Transactions extends Component {
             )
         });
         return (
-            <div>
+            <div className={CSS.right_side}>
+                <div className={CSS.right_side_info_block}>
+                    <img src={this.wallet.logo} className={CSS.right_side_info_img} alt="Triumf Crypto coin" />
+                    <span className={CSS.right_side_info_block_text_1}>
+                        {this.wallet.blockchain}
+                    </span>
+                    <span className={CSS.right_side_info_block_text_2}>
+                        {this.wallet.balance}
+                    </span>
+                    <span className={CSS.right_side_info_block_text_3}>
+                        USD ~ $ 1136.78
+                    </span>
+                </div>
                 <div className={[CSS.right_side_button_block, CSS.clearfix].join(' ')}>
                     <a href="/" onClick={(e) => this.props.showSendTransaction(e, this.props.id)} className={[CSS.button_send, CSS.left].join(' ')}>SEND</a>
                     <a href="/" className={[CSS.button_resive, CSS.right].join(' ')}>RECIVE</a>

@@ -30,3 +30,11 @@
     background-color: red;
 	text-align: center;
 }
+.right_side{
+	float:left;
+	background: #06222E;
+	width: 35%;
+	padding: 0 40px;
+	height: 100%;
+	text-align: center;
+}

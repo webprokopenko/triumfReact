@@ -6,6 +6,10 @@ import Bch from '../../../services/Bch/Bch';
 import Eth from '../../../services/Eth/Eth';
 import Btc from '../../../services/Btc/Btc';
 import Ltc from '../../../services/Ltc/Ltc';
+
+import LogoBtc from '../../../assets/images/icons/btc.png';
+import LogoEth from '../../../assets/images/icons/eth.png';
+
 import CSS from './Account.css';
 
 class Account extends Component {
@@ -61,13 +65,15 @@ class Account extends Component {
                 this.key.privateKey = privateKey;
                 this.key.address = '0x' + this.key.address
                 this.key.balance = 10e18 * await this.Eth.getBalance(this.key.address);
+                this.key.logo = LogoEth;
                 this.props.addNewWallet(this.key);
                 break;
             case 'btc':
                 let pKey = this.Btc.recoveryKey(this.state.authPass, this.key);
                 this.key.privateKey = pKey.privatekey;
                 this.key.balance ='...';
-                this.props.addNewWallet(this.key)
+                this.props.addNewWallet(this.key);
+                this.key.logo = LogoBtc;
                 break;
             case 'bch':
                 let pK = this.Bch.recoveryKey(this.state.authPass, this.key);
@@ -75,13 +81,15 @@ class Account extends Component {
                 this.key.balance = await this.Bch.getBalance(this.key.address);
                 console.log('BCH balance: ');
                 console.log(this.key.balance);
-                this.props.addNewWallet(this.key)
+                this.props.addNewWallet(this.key);
+                this.key.logo = LogoBtc;
                 break;
             case 'ltc':
                 let prKey = this.Ltc.recoveryKey(this.state.authPass, this.key);
                 this.key.privateKey = prKey.privatekey;
                 this.key.balance = '...';
                 this.props.addNewWallet(this.key);
+                this.key.logo = LogoBtc;
                 break;
             default:
                 break;
@@ -90,6 +98,7 @@ class Account extends Component {
     render() {
         return (
             <div>
+            <div className={CSS.right_side}>
                 <select
                     value={this.state.typeAccount}
                     onChange={this.handleChange}>
@@ -127,6 +136,7 @@ class Account extends Component {
                 </div>
                 <br />
                 <button className={CSS.button_send} onClick={() => this.auth()}>AUTH FROM FILE</button>
+            </div>
             </div>
         )
     }
