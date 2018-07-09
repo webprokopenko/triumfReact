@@ -100,7 +100,7 @@ class Account extends Component{
 }
 const mapStateToProps = state => {
     return {
-        globalWallets: state.wallets
+        globalWallets: state.wall.wallets
     }
 }
 const mapDispatchToProps = dispatch => {

@@ -41,7 +41,7 @@ class Stats extends Component{
 }
 const mapStateToProps = state => {
     return {
-        curr: state.curr
+        curr: state.curr.curr
     }
 }
   const mapDispatchToProps = dispatch => {

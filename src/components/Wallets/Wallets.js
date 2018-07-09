@@ -24,8 +24,8 @@ class Wallets extends Component {
 }
 const mapStateToProps = state =>{
     return {
-        globalWallets: state.wallets,
-        curr: state.curr
+        globalWallets: state.wall.wallets,
+        curr: state.curr.curr
     }
 }
 export default connect(mapStateToProps)(Wallets);

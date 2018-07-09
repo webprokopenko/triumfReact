@@ -19,7 +19,6 @@ class Transactions extends Component{
     }
     async componentWillMount(){
         try {
-            console.log(this.BlockChain);
             let tr = await this.BlockChain.getTransactionsList(this.wallet.address);
             this.setState({trList : this.BlockChain.prepareTransaction(tr,this.wallet.address)});
         } catch (error) {
@@ -63,7 +62,7 @@ class Transactions extends Component{
 }
 const MapStateToProps = state =>{
     return{
-        globalWallets: state.wallets
+        globalWallets: state.wall.wallets
     }
 }
 export default connect(MapStateToProps)(Transactions)

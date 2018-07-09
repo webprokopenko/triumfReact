@@ -1,15 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import reducer from './store/reducer';
+import walletReducer from './store/reducers/wallet';
+import currencyReducer from './store/reducers/currency';
 
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-const store = createStore(reducer);
+const rootReducer = combineReducers({
+    wall: walletReducer,
+    curr: currencyReducer
+})
+
+const store = createStore(rootReducer);
 
 const app = (
     <Provider store={store}>

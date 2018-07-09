@@ -34,7 +34,7 @@ const isEmptyObj = obj => {
 }
 const mapStateToProps = state => {
     return {
-        globalWallets: state.wallets
+        globalWallets: state.wall.wallets
     }
 }
 const mapDispatchToProps = dispatch => {

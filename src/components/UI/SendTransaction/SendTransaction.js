@@ -111,7 +111,7 @@ class SendTransaction extends Component {
 }
 const mapStateToProps = state => {
     return {
-        globalWallets: state.wallets
+        globalWallets: state.wall.wallets
     }
 }
 export default connect(mapStateToProps)(SendTransaction); 
