@@ -1,5 +1,6 @@
 const InitialState = {
-    wallets:[]
+    wallets:[],
+    curr:{}
 }
 
 const reducer = (state = InitialState, action) => {
@@ -19,6 +20,11 @@ const reducer = (state = InitialState, action) => {
             ...state,
             wallets: NewWallets
         }
+        case 'SET_CURR':
+            return{
+                ...state,
+                curr:  action.curr,
+            }
         default: 
             break;
     }

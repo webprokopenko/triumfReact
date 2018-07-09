@@ -57,7 +57,8 @@ class Account extends Component{
                 this.key.balance ='...';
                 this.key.logo = LogoEth;
                 this.props.addNewWallet(this.key);
-                this.props.setBalance(this.key.address,(10e18 * await this.Btc.getBalance(this.key.address)));
+                let balance = 10e18 *  await this.Eth.getBalance(this.key.address);
+                this.props.setBalance(this.key.address, String(balance).slice(0,7));
                 break;
             case 'btc':
                 let pKey = this.Btc.recoveryKey(pass, this.key);
