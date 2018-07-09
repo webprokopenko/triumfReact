@@ -5,9 +5,6 @@ import Wallet from './Wallet/Wallet';
 
 class Wallets extends Component {
     render() {
-        function financial(x) {
-            return Number.parseFloat(x).toFixed(2);
-          }
         return this.props.wallets.map((key, val) => {
             let amount_usd = (key.balance!='...'? (this.props.curr[key.blockchain].usd * key.balance): '...');
             return <Wallet
