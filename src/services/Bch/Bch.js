@@ -7,7 +7,7 @@ class Bch{
         this.BchAccountService = new BchAccountService('testnet');
         this.Api = new ApiBCH();
     }
-    generateBchAccount(passphrase){
+    generateAccount(passphrase){
         let obj = this.BchAccountService.generateKeys(passphrase);
         this.BchAccountService.KeyData.saveObject(obj);
     }

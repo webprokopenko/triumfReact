@@ -32,13 +32,13 @@ class Account extends Component{
     generateAccount = (typeAccount, pass) => {
         switch (typeAccount) {
             case 'eth':
-                this.Eth.generateEthKeyFile(pass);
+                this.Eth.generateAccount(pass);
                 break;
             case 'btc':
-                this.Btc.generateBtcAccount(pass);
+                this.Btc.generateAccount(pass);
                 break;
             case 'bch':
-                this.Bch.generateBchAccount(pass);
+                this.Bch.generateAccount(pass);
                 break;
             case 'ltc':
                 this.Ltc.generateAccount(pass);
@@ -54,9 +54,10 @@ class Account extends Component{
                 let privateKey =  await this.Eth.recoveryKey(pass, copyKey)
                 this.key.privateKey = privateKey;
                 this.key.address = '0x' + this.key.address
-                this.key.balance = 10e18 * await this.Eth.getBalance(this.key.address);
+                this.key.balance ='...';
                 this.key.logo = LogoEth;
                 this.props.addNewWallet(this.key);
+                this.props.setBalance(this.key.address,(10e18 * await this.Btc.getBalance(this.key.address)));
                 break;
             case 'btc':
                 let pKey = this.Btc.recoveryKey(pass, this.key);
@@ -64,15 +65,15 @@ class Account extends Component{
                 this.key.balance ='...';
                 this.key.logo = LogoBtc;
                 this.props.addNewWallet(this.key);
+                this.props.setBalance(this.key.address,await this.Btc.getBalance(this.key.address));
                 break;
             case 'bch':
                 let pK = this.Bch.recoveryKey(pass, this.key);
                 this.key.privateKey = pK.privatekey;
-                this.key.balance = await this.Bch.getBalance(this.key.address);
-                console.log('BCH balance: ');
-                console.log(this.key.balance);
+                this.key.balance = '...';
                 this.key.logo = LogoBtc;
                 this.props.addNewWallet(this.key);
+                this.props.setBalance(this.key.address,await this.Bch.getBalance(this.key.address));
                 break;
             case 'ltc':
                 let prKey = this.Ltc.recoveryKey(pass, this.key);
@@ -80,6 +81,7 @@ class Account extends Component{
                 this.key.balance = '...';
                 this.key.logo = LogoBtc;
                 this.props.addNewWallet(this.key);
+                this.props.setBalance(this.key.address,await this.Ltc.getBalance(this.key.address));
                 break;
             default:
                 break;
@@ -102,7 +104,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        addNewWallet: (wallet) => dispatch({ type: 'ADD_WALLET', wallet: wallet })
+        addNewWallet: (wallet) => dispatch({ type: 'ADD_WALLET', wallet: wallet }),
+        setBalance: (address, balance) => dispatch({type: 'SET_BALANCE', address:address, balance: balance })
     }
 }
 

@@ -5,14 +5,14 @@ class Ltc{
     constructor(props){
         this.key={};
         this.LtcAccountService = new LtcAccountService('testnet');
-        this.ApiLTC = new ApiLTC();
+        this.Api = new ApiLTC();
     }
     generateAccount(passphrase){
         let obj = this.LtcAccountService.generateKeys(passphrase);
         this.LtcAccountService.KeyData.saveObject(obj);
     }
     async getBalance(address){
-        let balance = await this.ApiLTC.getBalance(address);
+        let balance = await this.Api.getBalance(address);
         return balance;
     }
     uploadFiles = files => {
@@ -43,7 +43,7 @@ class Ltc{
         return preparedTrList;
     }
     async sendTransaction(params){
-        let utxos = await this.ApiLTC.getUtxos(params.FromAddress);
+        let utxos = await this.Api.getUtxos(params.FromAddress);
         console.log('Utxos: ');
         console.log(utxos);
  //0.1
@@ -51,7 +51,7 @@ class Ltc{
         console.log('Raw transaction:')
         console.log(rawTransaction);
 
-        this.ApiLTC.sendTransaction(rawTransaction)
+        this.Api.sendTransaction(rawTransaction)
             .then(res=>{
                 console.log(res);
             })

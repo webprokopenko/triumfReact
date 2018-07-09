@@ -7,7 +7,7 @@ class Eth {
         this.Api = new ApiETH();
         this.AccountService = new AccountEthService();
     }
-    async generateEthKeyFile(passphrase) {
+    async generateAccount(passphrase) {
         let ObjKeyFile = await this.AccountService.createETHAccount(passphrase);
         this.AccountService.KeyData.saveObject(ObjKeyFile);
     }

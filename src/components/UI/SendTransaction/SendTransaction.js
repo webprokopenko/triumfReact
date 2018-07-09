@@ -4,6 +4,7 @@ import CSS from './SendTransaction.css';
 import Bch from '../../../services/Bch/Bch';
 import Eth from '../../../services/Eth/Eth';
 import Btc from '../../../services/Btc/Btc';
+import Ltc from '../../../services/Ltc/Ltc';
 
 class SendTransaction extends Component {
     constructor(props) {
@@ -65,6 +66,10 @@ class SendTransaction extends Component {
                 this.BlockChain = new Eth();
                 this.wallet = obj;
                 break;
+            case 'ltc':
+                this.BlockChain = new Ltc();
+                this.wallet = obj;
+                break;    
             default:
                 break;
         }

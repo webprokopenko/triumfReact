@@ -11,7 +11,7 @@ class Btc {
         let balance = await this.Api.getBalance(address);
         return balance;
     }
-    generateBtcAccount(passphrase){
+    generateAccount(passphrase){
         let obj = this.BtcAccountService.generateKeys(passphrase);
         this.BtcAccountService.KeyData.saveObject(obj);
     }

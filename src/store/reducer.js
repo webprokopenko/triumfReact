@@ -3,12 +3,26 @@ const InitialState = {
 }
 
 const reducer = (state = InitialState, action) => {
-    if(action.type === 'ADD_WALLET'){
+    switch(action.type )
+    {
+        case 'ADD_WALLET':
+            return {
+                ...state,
+                wallets: [...state.wallets, action.wallet]
+            }
+        case 'SET_BALANCE':
+            let NewWallets = [...state.wallets];
+            NewWallets.map(wallet =>{
+                if(wallet.address === action.address) wallet.balance = action.balance;
+            })
         return {
             ...state,
-            wallets: [...state.wallets, action.wallet]
+            wallets: NewWallets
         }
+        default: 
+            break;
     }
+
     return state;
 };
 

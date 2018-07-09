@@ -19,6 +19,7 @@ class Transactions extends Component{
     }
     async componentWillMount(){
         try {
+            console.log(this.BlockChain);
             let tr = await this.BlockChain.getTransactionsList(this.wallet.address);
             this.setState({trList : this.BlockChain.prepareTransaction(tr,this.wallet.address)});
         } catch (error) {
