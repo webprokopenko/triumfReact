@@ -30,9 +30,19 @@ class Stats extends Component{
           }
           this.getHotCourse()
     }
-    async getHotCourse(blockchain, currency) {
+    async getHotCourse() {
         let ethUsd = await StatsApi.getHotEthUSD();
+        let btcUsd = await StatsApi.getHotBtcUSD();
+        let btgUsd = await StatsApi.getHotBtgUSD();
+        let ltcUsd = await StatsApi.getHotLtcUSD();
+        let bchUsd = await StatsApi.getHotBchUSD();
+
         this.curr.eth.usd = ethUsd;
+        this.curr.btc.usd = btcUsd;
+        this.curr.btg.usd = btgUsd;
+        this.curr.ltc.usd = ltcUsd;
+        this.curr.bch.usd = bchUsd;
+
         this.props.setCurr(this.curr);
     }
     render(){
