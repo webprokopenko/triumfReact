@@ -1,10 +1,9 @@
 const InitialState = {
-    wallets:[],
+    wallets: [],
 }
 
 const reducer = (state = InitialState, action) => {
-    switch(action.type )
-    {
+    switch (action.type) {
         case 'ADD_WALLET':
             return {
                 ...state,
@@ -12,14 +11,24 @@ const reducer = (state = InitialState, action) => {
             }
         case 'SET_BALANCE':
             let NewWallets = [...state.wallets];
-            NewWallets.map(wallet =>{
-                if(wallet.address === action.address) wallet.balance = action.balance;
+            NewWallets.map(wallet => {
+                if (wallet.address === action.address) wallet.balance = action.balance;
             })
-        return {
-            ...state,
-            wallets: NewWallets
-        }
-        default :
+            return {
+                ...state,
+                wallets: NewWallets
+            }
+
+        case 'SET_TR-HISTORY':
+            let NewWalletsHistory = [...state.wallets];
+            NewWalletsHistory.map(wallet => {
+                if (wallet.address === action.address) wallet.transactions = action.transactions
+            })
+            return {
+                ...state,
+                wallets: NewWalletsHistory
+            }
+        default:
             return state;
     }
 };

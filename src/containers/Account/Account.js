@@ -57,6 +57,8 @@ class Account extends Component{
                 this.key.balance ='...';
                 this.key.logo = LogoEth;
                 this.props.addNewWallet(this.key);
+                let transactionETHList = await this.Eth.getTransactionsList(this.key.address);
+                this.props.setTransactions(this.key.address, this.Eth.prepareTransaction(transactionETHList,this.key.address));
                 let balance = 10e18 *  await this.Eth.getBalance(this.key.address);
                 this.props.setBalance(this.key.address, String(balance).slice(0,7));
                 break;
@@ -66,6 +68,8 @@ class Account extends Component{
                 this.key.balance ='...';
                 this.key.logo = LogoBtc;
                 this.props.addNewWallet(this.key);
+                let transactionBTCList = await this.Btc.getTransactionsList(this.key.address);
+                this.props.setTransactions(this.key.address, this.Btc.prepareTransaction(transactionBTCList,this.key.address));
                 this.props.setBalance(this.key.address,await this.Btc.getBalance(this.key.address));
                 break;
             case 'bch':
@@ -74,6 +78,8 @@ class Account extends Component{
                 this.key.balance = '...';
                 this.key.logo = LogoBtc;
                 this.props.addNewWallet(this.key);
+                let transactionBCHList = await this.Bch.getTransactionsList(this.key.address);
+                this.props.setTransactions(this.key.address, this.Bch.prepareTransaction(transactionBCHList,this.key.address));
                 this.props.setBalance(this.key.address,await this.Bch.getBalance(this.key.address));
                 break;
             case 'ltc':
@@ -82,6 +88,8 @@ class Account extends Component{
                 this.key.balance = '...';
                 this.key.logo = LogoBtc;
                 this.props.addNewWallet(this.key);
+                let transactionLTCList = await this.Bch.getTransactionsList(this.key.address);
+                this.props.setTransactions(this.key.address, this.Ltc.prepareTransaction(transactionLTCList,this.key.address));
                 this.props.setBalance(this.key.address,await this.Ltc.getBalance(this.key.address));
                 break;
             default:
@@ -106,7 +114,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         addNewWallet: (wallet) => dispatch({ type: 'ADD_WALLET', wallet: wallet }),
-        setBalance: (address, balance) => dispatch({type: 'SET_BALANCE', address:address, balance: balance })
+        setBalance: (address, balance) => dispatch({type: 'SET_BALANCE', address:address, balance: balance }),
+        setTransactions: (address, transactions) => dispatch({type: 'SET_TR-HISTORY', address: address, transactions: transactions})
     }
 }
 
