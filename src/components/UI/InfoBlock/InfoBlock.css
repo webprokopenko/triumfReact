@@ -1,0 +1,25 @@
+.right_side_info_block{
+	padding: 40px 0;
+	text-align: center;
+}
+.right_side_info_img{
+	padding-bottom: 30px;
+}
+.right_side_info_block_text_1{
+	font-family: 'mullerbold';
+	font-size: 25pt;
+	color: rgb(255,255,255);
+	display: block;
+}
+.right_side_info_block_text_2{
+	font-family: 'mullerthin';
+	font-size: 35pt;
+	color: rgb(255,255,255);
+	display: block;
+}
+.right_side_info_block_text_3{
+	font-family: 'mullerultralight';
+	font-size: 15pt;
+	color: rgb(255,255,255);
+	display: block;
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import InfoBlock from '../InfoBlock/InfoBlock';
 import CSS from './SendTransaction.css';
 import Bch from '../../../services/Bch/Bch';
 import Eth from '../../../services/Eth/Eth';
@@ -76,20 +77,15 @@ class SendTransaction extends Component {
     }
 
     render() {
+        let amount_usd = (this.wallet.balance!=='...'? (this.props.curr[this.wallet.blockchain].usd * this.wallet.balance): '...');
         return (
             <div className={CSS.right_side}>
-                <div className={CSS.right_side_info_block}>
-                    <img src={this.wallet.logo} className={CSS.right_side_info_img} alt="Triumf Crypto coin" />
-                    <span className={CSS.right_side_info_block_text_1}>
-                        {this.wallet.blockchain}
-                    </span>
-                    <span className={CSS.right_side_info_block_text_2}>
-                        {this.wallet.balance}
-                    </span>
-                    <span className={CSS.right_side_info_block_text_3}>
-                        USD ~ $ 1136.78
-                    </span>
-                </div>
+                < InfoBlock 
+                    logo={this.wallet.logo}
+                    blockchain={this.wallet.blockchain}
+                    balance={this.wallet.balance}
+                    amount_usd={amount_usd}
+                 />
                 <div className={CSS.right_side_send_transaction}>
                     <input type="text" name="public_key" className={CSS.input_send_transaction} value={this.state.to_address} onChange={(event) => this.setState({ to_address: event.target.value })} />
                     <span className={CSS.label_send_transaction}>
@@ -111,7 +107,8 @@ class SendTransaction extends Component {
 }
 const mapStateToProps = state => {
     return {
-        globalWallets: state.wall.wallets
+        globalWallets: state.wall.wallets,
+        curr: state.curr.curr
     }
 }
 export default connect(mapStateToProps)(SendTransaction); 

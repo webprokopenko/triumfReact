@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Transaction from './Transaction/Transaction';
+import InfoBlock from '../UI/InfoBlock/InfoBlock';
 import CSS from './Transaction/Transaction.css';
 
 class Transactions extends Component {
@@ -27,22 +28,18 @@ class Transactions extends Component {
         }
         return (
             <div className={CSS.right_side}>
-                <div className={CSS.right_side_info_block}>
-                    <img src={this.props.logo} className={CSS.right_side_info_img} alt='Triumf Crypto Coin'/>
-                    <span className={CSS.right_side_info_block_text_1}>
-                        {this.props.blockchain}
-                    </span>
-                    <span className={CSS.right_side_info_block_text_2}>
-                        {this.props.balance}
-                    </span>
-                    <span className={CSS.right_side_info_block_text_3}>
-                        USD ~ $ 1136.78
-                    </span>
-                </div>
-                <div className={[CSS.right_side_button_block, CSS.clearfix].join(' ')}>
+                < InfoBlock 
+                    logo={this.props.logo}
+                    blockchain={this.props.blockchain}
+                    balance={this.props.balance}
+                    amount_usd={this.props.amount_usd}
+                 />
+
+                 <div className={[CSS.right_side_button_block, CSS.clearfix].join(' ')}>
                     <a href="/" onClick={(e) => this.props.showSendTransaction(e, this.props.id)} className={[CSS.button_send, CSS.left].join(' ')}>SEND</a>
                     <a href="/" className={[CSS.button_resive, CSS.right].join(' ')}>RECIVE</a>
                 </div>
+
                 <div className={CSS.right_side_tr_history_block}>
                     <span className={CSS.right_side_tr_history_text_1}>
                         TRANSACTION HISTORY

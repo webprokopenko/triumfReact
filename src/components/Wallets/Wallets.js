@@ -6,7 +6,7 @@ import Wallet from './Wallet/Wallet';
 class Wallets extends Component {
     render() {
         return this.props.wallets.map((key, val) => {
-            let amount_usd = (key.balance!='...'? (this.props.curr[key.blockchain].usd * key.balance): '...');
+            let amount_usd = (key.balance!=='...'? (this.props.curr[key.blockchain].usd * key.balance): '...');
             return <Wallet
                 key={this.props.wallets.indexOf(key)}
                 logo={this.props.globalWallets[val].logo}
