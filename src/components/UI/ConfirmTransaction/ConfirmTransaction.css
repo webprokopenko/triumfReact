@@ -1,0 +1,54 @@
+.right_side{
+	float:left;
+	background: #06222E;
+	width: 35%;
+	padding: 0 40px;
+	height: 100%;
+	text-align: center;
+}
+.right_side_send_transaction{
+	padding-bottom: 100px;
+}
+.right_side_confirm_transaction{
+	padding: 50px 0;
+	width: 100%;
+	border-left-width: 0;
+	border-right-width: 0;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: rgb(255,255,255);
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: rgb(255,255,255);
+}
+.text_send_transaction{
+	padding-top: 30px;
+	color: rgb(255,255,255);
+    font-family: "mullerbold";
+    font-size: 18pt;
+}
+.text_send_transaction_1{
+	color: #00FFEB;
+    font-family: "mullerthin";
+    font-size: 18pt;
+}
+.button_confirm{
+	background-color: #00FFEB;
+	display: block;
+	text-decoration: none;
+    color: rgb(255,255,255);
+    padding: 15px 35px;
+    font-family: "mullerthin";
+    font-size: 12pt;
+    position: relative;
+    border-radius: 2px;
+	text-align: center;
+	display: table;
+	  margin: 0 auto;
+	  width: 200px;
+}
+.label_send_transaction{
+	color: rgb(255,255,255);
+    font-family: "mullerthin";
+    font-size: 12pt;
+}

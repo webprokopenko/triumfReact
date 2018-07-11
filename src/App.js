@@ -4,6 +4,7 @@ import LeftSide from './containers/LeftSide/LeftSide';
 import CenterSide from './containers/CentralSide/CentralSide';
 import RightSide from './containers/RightSide/RightSide';
 import WindowSendTransaction from './components/UI/SendTransaction/SendTransaction';
+import WindowConfirmTransaction from './components/UI/ConfirmTransaction/ConfirmTransaction';
 import WindowTransactions from './containers/Transactions/Transactions'
 import WindowAccount from './containers/Account/Account';
 import Starts from './services/Stats/Stats';
@@ -24,7 +25,12 @@ class App extends Component {
   }
   sendTransaction = (e, id) => {
     e.preventDefault();
-    this.setState({ rightWindow: <WindowSendTransaction id={id} /> })
+    this.setState({ rightWindow: <WindowSendTransaction id={id} showConfirmTransaction={this.confirmTransaction}/> })
+  }
+  confirmTransaction = (e, params) => {
+    e.preventDefault();
+    console.log(params);
+    this.setState({ rightWindow: <WindowConfirmTransaction params={params} /> })
   }
   transactionsHistory = (e, id) => {
     e.preventDefault();

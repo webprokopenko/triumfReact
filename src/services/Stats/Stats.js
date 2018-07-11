@@ -6,28 +6,7 @@ import  StatsApi  from './StatsApi';
 class Stats extends Component{
     constructor(props){
         super(props)
-        this.curr = {
-            'eth': {
-              'usd': '...',
-              'eur': '...',
-            },
-            'btc': {
-              'usd': '...',
-              'eur': '...',
-            },
-            'bch': {
-              'usd': '...',
-              'eur': '...',
-            },
-            'btg': {
-              'usd': '...',
-              'eur': '...',
-            },
-            'ltc': {
-              'usd': '...',
-              'eur': '...',
-            },
-          }
+        this.curr = this.props.curr;
           this.getHotCourse()
     }
     async getHotCourse() {

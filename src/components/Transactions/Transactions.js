@@ -29,10 +29,7 @@ class Transactions extends Component {
         return (
             <div className={CSS.right_side}>
                 < InfoBlock 
-                    logo={this.props.logo}
-                    blockchain={this.props.blockchain}
-                    balance={this.props.balance}
-                    amount_usd={this.props.amount_usd}
+                    id_wallet={this.props.id}
                  />
 
                  <div className={[CSS.right_side_button_block, CSS.clearfix].join(' ')}>

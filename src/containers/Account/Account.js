@@ -88,7 +88,7 @@ class Account extends Component{
                 this.key.balance = '...';
                 this.key.logo = LogoBtc;
                 this.props.addNewWallet(this.key);
-                let transactionLTCList = await this.Bch.getTransactionsList(this.key.address);
+                let transactionLTCList = await this.Ltc.getTransactionsList(this.key.address);
                 this.props.setTransactions(this.key.address, this.Ltc.prepareTransaction(transactionLTCList,this.key.address));
                 this.props.setBalance(this.key.address,await this.Ltc.getBalance(this.key.address));
                 break;

@@ -1,5 +1,26 @@
 const InitialState = {
-    curr: {}
+    curr: {
+        'eth': {
+            'usd': '...',
+            'eur': '...',
+          },
+          'btc': {
+            'usd': '...',
+            'eur': '...',
+          },
+          'bch': {
+            'usd': '...',
+            'eur': '...',
+          },
+          'btg': {
+            'usd': '...',
+            'eur': '...',
+          },
+          'ltc': {
+            'usd': '...',
+            'eur': '...',
+          },
+    }
 }
 
 const reducer = (state = InitialState, action) => {
