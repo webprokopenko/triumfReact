@@ -8,6 +8,12 @@
 	border-right-color: white;
 	height: 100%;
 }
+.left_side_menu_link{
+	text-decoration: none;
+	color: rgb(255,255,255);
+	font-family: 'mullerlight';
+	font-size: 12pt;
+}
 .wrapp_logo{
 	border-bottom-width: 1px;
 	border-bottom-style: solid;

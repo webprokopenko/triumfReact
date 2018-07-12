@@ -27,15 +27,19 @@ class AccountLtcService {
         }
     }
     recoveryFromKeyObject(passphrase: string, keyObject: object) {
-        let dKey, decifer: any = {};
-        decifer = crypto.createDecipher(
-            keyObject.calg,
-            passphrase);
-        dKey = decifer.update(keyObject['cifertext'], 'hex', 'utf8');
-        dKey += decifer.final('utf8');
-        return {
-            privatekey: dKey,
-            address: keyObject.address
+        try {
+            let dKey, decifer: any = {};
+            decifer = crypto.createDecipher(
+                keyObject.calg,
+                passphrase);
+            dKey = decifer.update(keyObject['cifertext'], 'hex', 'utf8');
+            dKey += decifer.final('utf8');
+            return {
+                privatekey: dKey,
+                address: keyObject.address
+            }   
+        } catch (error) {
+            console.log('Pasword not valid!');
         }
     }
     /**

@@ -32,8 +32,12 @@ class Eth {
             })
     }
     async recoveryKey(passphrase, key) {
-        let privateKey = await this.AccountService.recoveryFromKeyObject(passphrase, key);
-        return privateKey;
+        try {
+            let privateKey = await this.AccountService.recoveryFromKeyObject(passphrase, key);
+            return privateKey;   
+        } catch (error) {
+            console.log('Password not valid!');
+        }
     }
     async getBalance(address){
         let balance = await this.Api.getBalance(address)

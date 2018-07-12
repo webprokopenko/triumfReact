@@ -22,12 +22,48 @@ export class KeyDataToFile extends AbstractKeyData{
                 const file = new FileReader();
                 file.readAsText(files[0]);
                 file.onload = (event) => {
-                    const keyFile = JSON.parse(event.target.result);
-                    resolve(keyFile);
+                    try {
+                        const keyFile = JSON.parse(event.target.result);
+                        switch (keyFile.blockchain) {
+                            case 'eth':
+                                this.checkETHfile(keyFile)
+                                break;
+                            default:
+                                this.checkBTAfile(keyFile)
+                                break;
+                        }
+                        resolve(keyFile);    
+                    } catch (error) {
+                        reject('File not valid' + error);
+                    }
+                    
                 }
             } catch (error) {
                 reject (error)
             }
         })
+    }
+    checkBTAfile(file){
+        if(file.address === undefined  || file.cifertext === undefined || file.blockchain === undefined)
+            throw new Error('File not valid');
+    }
+    checkETHfile(file){
+        if(file.address === undefined  || 
+            file.crypto === undefined || 
+            file.blockchain === undefined ||
+            file.version === undefined ||
+            file.id === undefined ||
+            file.crypto.cipher === undefined ||
+            file.crypto.ciphertext === undefined ||
+            file.crypto.cipherparams.iv === undefined ||
+            file.crypto.mac === undefined ||
+            file.crypto.kdf === undefined ||
+            file.crypto.kdfparams.dklen === undefined ||
+            file.crypto.kdfparams.n === undefined ||
+            file.crypto.kdfparams.p === undefined ||
+            file.crypto.kdfparams.r === undefined ||
+            file.crypto.kdfparams.salt === undefined 
+        )
+            throw new Error('File not valid');
     }
 }
