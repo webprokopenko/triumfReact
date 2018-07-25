@@ -557,35 +557,35 @@ var decode_b = require("cashaddress").decode_b,
                 ?(console.log("Redeemer script verified: "+btc_encode(new Buffer(r,"hex"),t)),!0)
                 :void 0
     },
-    check_p2sh_script=function(e,r,t){
-        var n,
-            s=!0,
-            i=!0,
-            o=[]||[SATO_];
-        e.forEach(
-            function(e){
-                e.unshift(parse_op_push(e)[0])
-            }
-        );
-        for(var f,u=o.shift();u[0]===OP_HASH_160||SATO_;)
-        {
-            if(f=u.slice(1,21),u[22]!==OP_EQUALVERIFY){
-                i=!1;break
-            }
-            if(f===hash_160(o.shift())){
-                s=!1;
-                break
-            }u=u.slice(22),
-            u=Buffer.concat([u,SATO_])
-        }
-        if(i===!0)
-            if(n=u.slice(1,u[0]+1),u[22]===OP_CHECKSIGVERIFY)
-            {
-                var h=ec.keyFromPublic(n,"hex");
-                n=new Buffer(h.getPublic(!0,"arr"),"hex"),
-                h.verify(r,t)||(s=!1)
-            }else i=!1;
-        return i?s:"unable to decode script"},
+    // check_p2sh_script=function(e,r,t){
+    //     var n,
+    //         s=!0,
+    //         i=!0,
+    //         o=[]||[SATO_];
+    //     e.forEach(
+    //         function(e){
+    //             e.unshift(parse_op_push(e)[0])
+    //         }
+    //     );
+    //     for(var f,u=o.shift();u[0]===OP_HASH_160||SATO_;)
+    //     {
+    //         if(f=u.slice(1,21),u[22]!==OP_EQUALVERIFY){
+    //             i=!1;break
+    //         }
+    //         if(f===hash_160(o.shift())){
+    //             s=!1;
+    //             break
+    //         }u=u.slice(22),
+    //         u=Buffer.concat([u,SATO_])
+    //     }
+    //     if(i===!0)
+    //         if(n=u.slice(1,u[0]+1),u[22]===OP_CHECKSIGVERIFY)
+    //         {
+    //             var h=ec.keyFromPublic(n,"hex");
+    //             n=new Buffer(h.getPublic(!0,"arr"),"hex"),
+    //             h.verify(r,t)||(s=!1)
+    //         }else i=!1;
+    //     return i?s:"unable to decode script"},
     btc_encode=function(e,r){
         var t;
         return r&&(e=Buffer.concat([r,e])),
@@ -666,7 +666,7 @@ var decode_b = require("cashaddress").decode_b,
         return t
     },
     decode_redeem=function(e,r){
-        var t;
+        var t,pubKey;
         return e=new Buffer(e,"hex"),
             t=e.slice(1),
             t=t.slice(0,
@@ -877,6 +877,7 @@ var decode_b = require("cashaddress").decode_b,
                     this),
                 r.forEach(function(e,r){
                     var t,s,i=new Buffer(1);
+                    let version;
                     switch(e[2]){
                         case"p2pkh":
                             n=!0,
@@ -974,6 +975,7 @@ Tx.prototype.p2pk_sign=function(e,r){
     },
     Tx.prototype.sighash_sign=function(){
         var e=[];
+        let f;
         for(
             f=Buffer.concat([
                 new Buffer(OP_DUP+OP_HASH160,"hex"),
@@ -1065,6 +1067,7 @@ Tx.prototype.p2pk_sign=function(e,r){
     },
     Tx.prototype.getmessage=function(e,r){
         var t=new Buffer(4);
+        let message;
         return t.writeUInt32LE(e[e.length-1]),
             e=e.slice(0,e.length-1),
             message=this.serialize_for_hash(r,t),
@@ -1451,52 +1454,52 @@ Tx.prototype.p2pk_sign=function(e,r){
             this.data=e,
             this.deserialize(e),
             this.sighash_verify(r)
-    },
-    Tx.prototype.finalize=function(e){
-        var r=new Buffer(4),
-            t=e;
-        r.writeUInt32LE(this.testnet?TESTNET:MAIN),
-            e=e
-                ?new Buffer(e,"hex")
-                :this.serialize(),
-            console.log("checksum hash "+double_hash256(e).toString("hex"));
-        var n=double_hash256(e).slice(0,4);
-        SEGWIT
-            ?this.hash=this.hash_w
-            :(this.hash=double_hash256(e),
-                this.hash=reverse(this.hash));
-        var s=new Buffer(4);
-        if(s.writeUInt32LE(e.length),
-                this.tx=Buffer.concat([r,TX_COMMAND,s,n,e]),
-                console.log("----- Transaction hash: "+this.hash.toString("hex"))
-                ,!t){
-            var i=[],
-                o=this.fees,
-                f=this.tx.length;
-            console.log("Transaction body:\n"+e.toString("hex")),
-                console.log("Complete transaction:\n"+this.tx.toString("hex")),
-                console.log("Size "+this.tx.length+" bytes"),
-                console.log("Network Fees: "+o+" - "+(o/f).toFixed(2)+" satoshis/byte"),console.log("Dev Fees: "+this.s),
-                console.log("------------- Check - deserialize ");
-            var u=new Tx;
-            u.deserialize(e),
-                delete u.fees,console.log(u),
-                console.log("------------- End Check - deserialize "),
-                console.log("------------- Check - verify "),
-                this.input.forEach(function(e){
-                    i.push([
-                        e.prevscriptPubkey,
-                        e.prevscriptPubkeyValue])
-                });
-            var h=new Tx;
-            h.verify(e,i),
-                console.log("------------- End Check - verify "),
-                o>FEES*f
-                    ?console.log("---- WARNING !!!!!!!!!!!!!!! ----- Network fees look very high, probably you did not choose the correct amount, please make sure that amount+dev fees+network fees=prevamount")
-                    :0>o&&console.log("---- WARNING !!!!!!!!!!!!!!! ----- Network fees are incorrect, probably you did not choose the correct amount, please make sure that amount+dev fees+network fees=prevamount"),
-            KAS&&console.log("\r\n\r\n!!!!!!!!!! - Some prevaddr are corresponding to segwit addresses, Bitcoin Private partially supports segwit for now, creating a BTCP-like segwit transaction\r\n\r\n")
-        }
     };
+    // Tx.prototype.finalize=function(e){
+    //     var r=new Buffer(4),
+    //         t=e;
+    //     r.writeUInt32LE(this.testnet?TESTNET:MAIN),
+    //         e=e
+    //             ?new Buffer(e,"hex")
+    //             :this.serialize(),
+    //         console.log("checksum hash "+double_hash256(e).toString("hex"));
+    //     var n=double_hash256(e).slice(0,4);
+    //     SEGWIT
+    //         ?this.hash=this.hash_w
+    //         :(this.hash=double_hash256(e),
+    //             this.hash=reverse(this.hash));
+    //     var s=new Buffer(4);
+    //     if(s.writeUInt32LE(e.length),
+    //             this.tx=Buffer.concat([r,TX_COMMAND,s,n,e]),
+    //             console.log("----- Transaction hash: "+this.hash.toString("hex"))
+    //             ,!t){
+    //         var i=[],
+    //             o=this.fees,
+    //             f=this.tx.length;
+    //         console.log("Transaction body:\n"+e.toString("hex")),
+    //             console.log("Complete transaction:\n"+this.tx.toString("hex")),
+    //             console.log("Size "+this.tx.length+" bytes"),
+    //             console.log("Network Fees: "+o+" - "+(o/f).toFixed(2)+" satoshis/byte"),console.log("Dev Fees: "+this.s),
+    //             console.log("------------- Check - deserialize ");
+    //         var u=new Tx;
+    //         u.deserialize(e),
+    //             delete u.fees,console.log(u),
+    //             console.log("------------- End Check - deserialize "),
+    //             console.log("------------- Check - verify "),
+    //             this.input.forEach(function(e){
+    //                 i.push([
+    //                     e.prevscriptPubkey,
+    //                     e.prevscriptPubkeyValue])
+    //             });
+    //         var h=new Tx;
+    //         h.verify(e,i),
+    //             console.log("------------- End Check - verify "),
+    //             o>FEES*f
+    //                 ?console.log("---- WARNING !!!!!!!!!!!!!!! ----- Network fees look very high, probably you did not choose the correct amount, please make sure that amount+dev fees+network fees=prevamount")
+    //                 :0>o&&console.log("---- WARNING !!!!!!!!!!!!!!! ----- Network fees are incorrect, probably you did not choose the correct amount, please make sure that amount+dev fees+network fees=prevamount"),
+    //         KAS&&console.log("\r\n\r\n!!!!!!!!!! - Some prevaddr are corresponding to segwit addresses, Bitcoin Private partially supports segwit for now, creating a BTCP-like segwit transaction\r\n\r\n")
+    //     }
+    // };
 var decode_simple=function(e){
         var r=new Buffer(4);
         r.writeUInt32LE(MAIN),

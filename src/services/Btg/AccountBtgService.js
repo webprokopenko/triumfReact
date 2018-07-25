@@ -1,7 +1,6 @@
 import * as BG from 'bitcoinjs-lib';
 import * as crypto from 'crypto-browserify';
 import * as btgTx from './BtgTx';
-import * as Big from 'bignumber.js';
 import { KeyDataToFile } from '../KeyDataToFile';
 
 class AccountBchService {

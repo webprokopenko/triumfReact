@@ -19,6 +19,7 @@ class Account extends Component {
                     <option key='btc' value='btc'>BTC</option>
                     <option key='bch' value='bch'>BCH</option>
                     <option key='ltc' value='ltc'>LTC</option>
+                    <option key='btg' value='btg'>BTG</option>
                 </select>
                 <h2>Generate New Account</h2>
                 <input type="input" className={CSS.input_send_transaction} value={this.state.newPass} onChange={(event) => this.setState({ newPass: event.target.value })} />

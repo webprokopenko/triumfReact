@@ -4,6 +4,7 @@ import Bch from '../../services/Bch/Bch';
 import Eth from '../../services/Eth/Eth';
 import Btc from '../../services/Btc/Btc';
 import Ltc from '../../services/Ltc/Ltc';
+import Btg from '../../services/Btg/Btg';
 
 import AccountUI from '../../components/Account/Account';
 
@@ -18,6 +19,7 @@ class Account extends Component{
         this.Eth = new Eth();
         this.Btc = new Btc();
         this.Ltc = new Ltc();
+        this.Btg = new Btg();
         this.key = {}
     }
     uploadFiles = files => {
@@ -43,6 +45,9 @@ class Account extends Component{
             case 'ltc':
                 this.Ltc.generateAccount(pass);
                 break;
+            case 'btg':
+                this.Btg.generateAccount(pass);
+                break;    
             default:
                 break;
         }
@@ -92,6 +97,17 @@ class Account extends Component{
                 this.props.setTransactions(this.key.address, this.Ltc.prepareTransaction(transactionLTCList,this.key.address));
                 this.props.setBalance(this.key.address,await this.Ltc.getBalance(this.key.address));
                 break;
+            case 'btg':
+                let priKey = this.Btg.recoveryKey(pass, this.key);
+                this.key.privateKey = priKey.privatekey;
+                this.key.balance = '...';
+                this.key.logo = LogoBtc;
+                this.props.addNewWallet(this.key);
+                let transactionBTGList = await this.Btg.getTransactionsList(this.key.address);
+                this.props.setTransactions(this.key.address, this.Btg.prepareTransaction(transactionBTGList,this.key.address));
+                this.props.setBalance(this.key.address,await this.Btg.getBalance(this.key.address));
+                break;
+
             default:
                 break;
         }
