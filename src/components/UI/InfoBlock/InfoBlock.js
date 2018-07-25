@@ -10,7 +10,7 @@ class InfoBlock extends Component {
         return (
             <div>
                 <div className={CSS.right_side_info_block}>
-                    <img src={this.props.globalWallets[id_wallet].logo} className={CSS.right_side_info_img}/>
+                    <img src={this.props.globalWallets[id_wallet].logo} className={CSS.right_side_info_img} alt="Triumf Wallet"/>
                     <span className={CSS.right_side_info_block_text_1}>
                         {this.props.globalWallets[id_wallet].blockchain}
                     </span>
