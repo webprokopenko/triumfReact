@@ -1,6 +1,7 @@
 class AbstractBlockchain{
-    constructor(accountService, blockchainApi){
-        this.AccountService = new accountService('testnet');
+    constructor(accountService, blockchainApi, net){
+
+        this.AccountService = new accountService(net ? net : 'testnet');
         this.Api = new blockchainApi();
     }
     generateAccount(passphrase){

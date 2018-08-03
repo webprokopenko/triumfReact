@@ -6,12 +6,14 @@ import Bch from '../../../services/Bch/Bch';
 import Eth from '../../../services/Eth/Eth';
 import Btc from '../../../services/Btc/Btc';
 import Ltc from '../../../services/Ltc/Ltc';
+import Btg from '../../../services/Btg/Btg';
 
 import CSS from './ConfirmTransaction.css';
 
 class ConfirmTransaction extends Component {
     componentWillMount() {
         this.setBlockChain(this.props.globalWallets[this.props.params[2]])
+        console.log(this.props.globalWallets);
     }
     async sendTransaction(e) {
         e.preventDefault();
@@ -60,6 +62,10 @@ class ConfirmTransaction extends Component {
                 break;
             case 'ltc':
                 this.BlockChain = new Ltc();
+                this.wallet = obj;
+                break; 
+            case 'btg':
+                this.BlockChain = new Btg();
                 this.wallet = obj;
                 break;    
             default:

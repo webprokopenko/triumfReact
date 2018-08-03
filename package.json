@@ -11,6 +11,7 @@
     "babel-loader": "7.1.2",
     "babel-preset-react-app": "^3.1.1",
     "babel-runtime": "6.26.0",
+    "bgoldjs-lib": "^3.3.3",
     "bignumber.js": "^2.0.7",
     "bitcoincashjs": "^0.1.10",
     "bitcoinjs-lib": "^3.3.2",

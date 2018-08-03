@@ -1,7 +1,8 @@
-import * as BG from 'bitcoinjs-lib';
+import * as BG from 'bgoldjs-lib';
 import * as crypto from 'crypto-browserify';
-import * as btgTx from './BtgTx';
+import {Networks} from './networks';
 import { KeyDataToFile } from '../KeyDataToFile';
+import * as Big from 'bignumber.js';
 
 class AccountBchService {
     constructor(network) {
@@ -10,9 +11,7 @@ class AccountBchService {
         this.KeyData = new KeyDataToFile();
     }
     generateKeys(passphrase: string) {
-        const net = BG.networks[
-            this.chainId === 1 ? 'bitcoingold' : 'bitcoingoldtestnet'
-        ];
+        const net = BG.networks['bitcoingold'];
         const pKey = BG.ECPair.makeRandom({
             network: net
         });
@@ -52,30 +51,31 @@ class AccountBchService {
      * @param {int} amount amount BTC
      * @param {string} change address where send rest of BTC
      */
-    prepareTransaction(params) {
-        const txid = new Array(0);
-        const sender = new Array(0);
-        const vinValue = new Array(0);
-        const vin = new Array(0);
-        params['utxo'].forEach(utx => {
-            txid.push(utx.txid);
-            sender.push(utx.address);
-            vinValue.push(utx.amount);
-            vin.push(utx.vout);
+    prepareTransaction(privateKey, utxos, toAddress, quantity, fromAddress) {
+        const keyPair = BG.ECPair.fromWIF(privateKey, Networks['BTG']['livenet']);
+
+        const pk = BG.crypto.hash160(keyPair.getPublicKeyBuffer());
+        const spk = BG.script.pubKeyHash.output.encode(pk);
+
+        const txb = new BG.TransactionBuilder(Networks['BTG']['livenet']);
+        const inpAmount = [];
+        const dec = new Big(1e8);
+        const hashType = BG.Transaction.SIGHASH_ALL | BG.Transaction.SIGHASH_FORKID;
+        utxos.forEach((utx, i) => {
+            inpAmount[i] = parseInt((new Big(utx.amount)).mul(dec).toString(), 10);
+            txb.addInput(utx.txid, utx.vout, BG.Transaction.DEFAULT_SEQUENCE, spk);
         });
-        const btxData = [
-            txid.join('_'),
-            sender.join('_'),
-            vinValue.join('_'),
-            vin.join('_'),
-            params['private'],
-            params['receiver'],
-            params['fees'].toString(),
-            params['amount'].toString()
-        ];
-        console.dir(btxData);
-        const raw = btgTx(btxData);
-        console.dir(raw);
+    
+        const spendAmmount = (new Big(quantity)).mul(dec);
+        const rest = new Big(inpAmount.reduce((a, i) => (new Big(a)).plus(new Big(i))));
+        txb.addOutput(toAddress, parseInt(spendAmmount.toString(), 10));
+        txb.addOutput(fromAddress, parseInt(rest.minus(spendAmmount).minus(new Big(10000)).toString(), 10));
+        txb.enableBitcoinGold(true);
+        txb.setVersion(2);
+        inpAmount.forEach((am, k) => {
+            txb.sign(k, keyPair, null, hashType, parseInt(am, 10));
+        });
+        const raw = txb.build().toHex();
         return raw;
     }
 }

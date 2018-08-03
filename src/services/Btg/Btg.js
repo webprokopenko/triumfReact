@@ -4,7 +4,7 @@ import AbstractBlockchain from '../AbstractBlockchain';
 
 class Btg extends AbstractBlockchain{
     constructor(){
-        super(BtgAccountService, ApiBTG);
+        super(BtgAccountService, ApiBTG, 'bitcoingold');
     }
 }
 export default Btg;

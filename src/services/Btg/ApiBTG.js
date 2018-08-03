@@ -28,7 +28,7 @@ class ApiBCH{
     getUtxos(address){
         return new Promise((resolve, reject)=>{
             try {
-                axios.get(`v4.2/BTG/getUTXOs/${address}`)
+                axios.get(`v4.2/BTG/getUtxos/${address}`)
                     .then(resp => {
                         resolve(resp.data);
                     })
