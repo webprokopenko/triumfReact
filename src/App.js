@@ -4,6 +4,8 @@ import LeftSide from './containers/LeftSide/LeftSide';
 import CenterSide from './containers/CentralSide/CentralSide';
 import RightSide from './containers/RightSide/RightSide';
 import WindowSendTransaction from './components/UI/SendTransaction/SendTransaction';
+import WindowSendToken from './components/UI/SendToken/SendToken';
+import WindowConfirmToken from './components/UI/ConfirmToken/ConfirmToken';
 import WindowConfirmTransaction from './components/UI/ConfirmTransaction/ConfirmTransaction';
 import WindowTransactions from './containers/Transactions/Transactions'
 import WindowAccount from './containers/Account/Account';
@@ -27,14 +29,22 @@ class App extends Component {
     e.preventDefault();
     this.setState({ rightWindow: <WindowSendTransaction id={id} showConfirmTransaction={this.confirmTransaction}/> })
   }
+  sendToken = (e, id) => {
+    e.preventDefault();
+    this.setState({ rightWindow: <WindowSendToken id={id} showConfirmToken={this.confirmToken}/> })
+  }
   confirmTransaction = (e, params) => {
     e.preventDefault();
     console.log(params);
     this.setState({ rightWindow: <WindowConfirmTransaction params={params} /> })
   }
+  confirmToken = (e, params) => {
+    e.preventDefault();
+    this.setState({ rightWindow: <WindowConfirmToken params={params} /> })
+  }
   transactionsHistory = (e, id) => {
     e.preventDefault();
-    this.setState({ rightWindow: <WindowTransactions id={id} showSendTransaction={this.sendTransaction} /> })
+    this.setState({ rightWindow: <WindowTransactions id={id} showSendTransaction={this.sendTransaction} showSendToken={this.sendToken}/> })
   }
   render() {
     let left = (
@@ -43,7 +53,7 @@ class App extends Component {
       </LeftSide>
     )
     let center = (
-      <CenterSide createWallet={this.createWallet} sendTransaction={this.sendTransaction} transactionsHistory={this.transactionsHistory}>
+      <CenterSide createWallet={this.createWallet} sendTransaction={this.sendTransaction} sendToken={this.sendToken} transactionsHistory={this.transactionsHistory}>
 
       </CenterSide>
     );

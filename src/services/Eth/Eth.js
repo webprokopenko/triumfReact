@@ -57,11 +57,10 @@ class Eth {
                     })
             })
     }
-    async sendTokenEth() {
-        let privateKey = await this.AccountService.recoveryFromKeyObject(this.state.auth_pass, this.keyFile);
+    async sendTokenEth(params) {
         let rawTx = await this.AccountService.prepareTokenTransaction(
-            this.state.transactionCount, this.state.gasPrice, this.state.to_adress,
-            privateKey, 1
+            params.transactionCount, params.gasPrice, params.ToAdress,
+            params.PrivateKey, params.Quantity, params.ToContract
         );
 
         let transactionHash = await this.Api.sendRawTransaction(rawTx);

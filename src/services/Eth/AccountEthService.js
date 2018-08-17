@@ -40,7 +40,7 @@ export class AccountEthService {
             try {
                 delete keyObject.blockchain
                 let privateKey = this.libKeythereum.recover(passphrase, keyObject);
-
+                console.log(privateKey.toString());
                 resolve(privateKey);
             } catch (e) {
                 reject(e);
@@ -69,20 +69,22 @@ export class AccountEthService {
         tx.sign(privateKey)
         return '0x' + tx.serialize().toString('hex')
     }
-    prepareTokenTransaction(trCount, gasPrice, receiver, privateKey, amount){
+    prepareTokenTransaction(trCount, gasPrice, receiver, privateKey, amount, toContract='0xD0fCcCe95c44a8c4Bd3C111718Bdc3D3Bcd56FB9'){
         const templ = '0000000000000000000000000000000000000000000000000000000000000000';
+        let num = amount * 1e18;
                 const txParams = {
                     nonce: trCount,
                     gasPrice: gasPrice,
                     gasLimit: '0x' + (Number(82000).toString(16)),
-                    to: '0x4c3f9408f77ca93eb528ca0ae3c99d72434466e2',
-                    value: '0x',
+                    to: toContract,
+                    value: '0x', 
                     data: '0xa9059cbb000000000000000000000000'
                         + receiver.replace('0x', '')
-                        + templ.substr(0, 64 - Number(1).toString(16).length)
-                        + Number(5).toString(16),
+                        + templ.substr(0, 64 - num.toString(16).length)
+                        + num.toString(16),
                     chainId: 3
                 }
+                console.log(txParams);
 
                 const tx = new EthereumTx(txParams)
                 tx.sign(privateKey)

@@ -11,6 +11,7 @@ class Transactions extends Component{
             blockchain={this.props.globalWallets[this.props.id].blockchain}
             balance={this.props.globalWallets[this.props.id].balance}
             showSendTransaction = {this.props.showSendTransaction}
+            showSendToken = {this.props.showSendToken}
             id={this.props.id}
             />
         );

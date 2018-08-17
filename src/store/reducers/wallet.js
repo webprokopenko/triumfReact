@@ -5,6 +5,7 @@ const InitialState = {
 const reducer = (state = InitialState, action) => {
     switch (action.type) {
         case 'ADD_WALLET':
+            console.log(action.wallet);
             return {
                 ...state,
                 wallets: [...state.wallets, action.wallet]
